@@ -1,4 +1,8 @@
+import 'font-awesome/css/font-awesome.css'
+
 import Vue from 'vue'
+import './plugins/graphql'
+
 import App from './App.vue'
 import router from './router'
 import store from './store'
