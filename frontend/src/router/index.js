@@ -4,6 +4,8 @@ import Home from '../views/logoff/Home.vue'
 
 import Dashboard from '@/views/login/Dashboard'
 import AdminPages from '@/components/admin/AdminPages'
+import Register from '@/views/logoff/Register'
+import Login from '@/views/logoff/Login'
 
 Vue.use(VueRouter)
 
@@ -29,6 +31,16 @@ const routes = [
     name: 'adminPages',
     path: '/admin',
     component: AdminPages
+  },
+  {
+    name: 'register',
+    path: '/register',
+    component: Register
+  },
+  {
+    name: 'login',
+    path: '/login',
+    component: Login
   },
   {
     path: '/about',

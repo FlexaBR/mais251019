@@ -15,9 +15,9 @@
             class="pa-3 pa-md-5 mx-auto"
             light
           >
-            <pages-heading class="text-center display-3">
+            <heading class="text-center display-3">
               Registro
-            </pages-heading>
+            </heading>
             <div v-if="erros">
               <erros :erros="erros" />
             </div>
@@ -90,12 +90,12 @@
                     type="password"
                   />
 
-                  <pages-btn
+                  <btn
                     color="success"
                     @click="registrar"
                   >
                     Registrar
-                  </pages-btn>
+                  </btn>
                 </div>
               </v-col>
             </v-row>
@@ -107,16 +107,16 @@
 </template>
 
 <script>
-  import Erros from '../dashboard/comum/Erros'
+  import Erros from '../../components/comum/Erros'
   import gql from 'graphql-tag'
 
   export default {
-    name: 'PagesRegister',
+    name: 'Register',
 
     components: {
       Erros,
-      PagesBtn: () => import('./components/Btn'),
-      PagesHeading: () => import('./components/Heading'),
+      Btn: () => import('../../components/comum/Btn'),
+      Heading: () => import('../../components/comum/Heading'),
     },
 
     data: () => ({
@@ -181,10 +181,3 @@
     },
   }
 </script>
-
-<style lang="sass">
-  #register
-    .v-list-item__subtitle
-      -webkic-line-clamp: initial
-      -webkit-box-orient: initial
-</style>

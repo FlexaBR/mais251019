@@ -7,7 +7,7 @@
   >
     <v-row justify="center">
       <v-slide-y-transition appear>
-        <base-material-card
+        <v-card
           color="success"
           light
           max-width="100%"
@@ -43,7 +43,7 @@
               type="password"
             />
 
-            <pages-btn
+            <btn
               large
               color
               depressed
@@ -51,9 +51,9 @@
               @click="login"
             >
               Entrar
-            </pages-btn>
+            </btn>
           </v-card-text>
-        </base-material-card>
+        </v-card>
       </v-slide-y-transition>
     </v-row>
   </v-container>
@@ -61,14 +61,14 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import Erros from '../dashboard/comum/Erros'
+  import Erros from '../../components/comum/Erros'
   import gql from 'graphql-tag'
 
   export default {
-    name: 'PagesLogin',
+    name: 'Login',
     components: {
       Erros,
-      PagesBtn: () => import('./components/Btn'),
+      Btn: () => import('../../components/comum/Btn'),
     },
     data () {
       return {
@@ -114,7 +114,7 @@
             this.usuario = {}
             this.erros = null
             this.setUsuario(this.dados)
-            this.$router.push(this.$route.query.redirect || '/dashboard/dashboard')
+            this.$router.push(this.$route.query.redirect || '/dashboard')
           })
           .catch(e => {
             this.erros = e

@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <AppBar />
+    <HomeDrawer />
     <v-content class="white">
       <router-view />
     </v-content>
@@ -15,7 +16,8 @@
     name: 'App',
     components: {
       AppBar: () => import('./components/template/AppBar'),
-      Footer: () => import('./components/template/Footer')
+      Footer: () => import('./components/template/Footer'),
+      HomeDrawer: () => import('./components/template/Drawer')
     },
     data: () => ({
       //
@@ -24,5 +26,12 @@
         this.setUsuario(null)
     },
     methods: mapActions(['setUsuario']) */
+
+    created () {
+      this.$vuetify.theme.dark = true
+    },
+    beforeDestroy () {
+      this.$vuetify.theme.dark = false
+    }
   }
 </script>

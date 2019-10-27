@@ -1,13 +1,13 @@
 <template>
   <v-alert
-    class="mt-n5"
+    
     color="cyan"
     dark
     dense
     tile
     height="68"
   >
-    <v-container class="py-0">
+    <v-container>
       <v-row
         align="center"
         justify="center"

@@ -1,12 +1,13 @@
 <template>
-  <v-app-bar absolute color="transparent" flat height="85">
+  <v-app-bar absolute color="transparent" flat height="85" :class="[$vuetify.breakpoint.mdAndUp ? 'md-1' : 'md-n6']">
     <v-container>
-      <v-row align="center">
+      <v-row align="center" :class="[$vuetify.breakpoint.mdAndUp ? 'mt-1' : 'mt-n6']">
         <v-img
-          class="shrink ml-n3"
+          class="shrink"
           max-width="40%"
           :src="require('@/assets/logoMB.png')"
           width="180"
+          
         />
 
         <v-spacer />
