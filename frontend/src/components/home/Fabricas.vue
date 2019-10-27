@@ -4,7 +4,7 @@
     class="py-5 black--text"
     tag="section"
   >
-    <heading>Nossas Campeãs</heading>
+    <heading>As Campeãs</heading>
 
     <v-row>
       <v-col

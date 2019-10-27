@@ -25,7 +25,7 @@
               :class="$vuetify.breakpoint.smAndUp ? 'display-3' : 'display-1 font-weight-light'"
               class="mb-2"
             >
-              Produtos que Mais Vendem
+              Produtos que Vendem
             </h1>
             <div :class="$vuetify.breakpoint.smAndUp ? 'title font-weight-light' : 'title font-weight-thin'">
               MaisRep a melhor assessoria para as compras de sua loja no Rio Grande do Sul.

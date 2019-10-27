@@ -1,7 +1,6 @@
 <template>
   <div
     id="home"
-    class="mb-12"
   >
     <jumbotron />
     <get-app />
@@ -49,13 +48,13 @@
       testimonials: [
         {
           blurb:
-            'Para atingirmos os melhores resultados, comprar certo é fundamental. Precisamos acertar na escolha dos produtos, cores, quantidades e preços. Sucesso em nosso departamento significa giro de vendas, produtos que não param nas prateleiras, e para isso, a assessoria da Mais Representações foi e é fundamental. Compramos sempre na medida certa para nossos melhores resultados.',
+            'Para atingirmos os melhores resultados, comprar certo é fundamental. Precisamos acertar na escolha dos produtos, cores, quantidades e preços. Sucesso em nosso departamento significa giro de vendas, produtos que não param nas prateleiras, e para isso, a assessoria da Mais Representações é indispensável. Compramos sempre na medida certa para nossos melhores resultados.',
           person: 'Nancy Swanson',
           title: 'Diretora de Compras, Cia Zaffari S.A.',
         },
         {
           blurb:
-            'Desde que conhecemos a Mais Rep nosso departamento de lyngerie teve um crescimento de 200%! A definição do mix de produtos e preços com a parceria da Mais foi essencial para nosso crescimento de vendas.',
+            'Desde que começamos o trabalho com a Mais nosso departamento de lyngerie teve um crescimento de 200%! A definição do mix de produtos e preços com a parceria MaisRep ajudou muito.',
           person: 'André Schraiber',
           title: 'Gerente de Compras, Lojas Pompéia',
         },
