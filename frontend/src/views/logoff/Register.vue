@@ -133,14 +133,14 @@
           icon: 'mdi-clipboard-check-outline',
           iconColor: 'primary',
           title: 'Orçamentos e Pedidos',
-          text: `Monte, avalie e envie rapidamente orçamentos e pedidos.`,
+          text: `Monte e avalie rapidamente orçamentos e pedidos.`,
         },
         {
           icon: 'mdi-calendar-check',
           iconColor: 'vinho',
           title: 'Programação de Pedido',
           text:
-            'Agende uma data aproximada para novos pedidos que lembramos você.',
+            'Estime uma data para novos pedidos que lembramos você.',
         },
       ],
     }),

@@ -1,6 +1,5 @@
 <template>
   <v-alert
-    
     color="cyan"
     dark
     dense
@@ -21,7 +20,7 @@
         <v-col class="shrink">
           <v-btn
             outlined
-            to="/login"
+            to="/register"
           >
             APP+Rep
           </v-btn>

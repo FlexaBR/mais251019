@@ -25,10 +25,10 @@
               :class="$vuetify.breakpoint.smAndUp ? 'display-3' : 'display-1 font-weight-light'"
               class="mb-2"
             >
-              Bom é Comprar Certo e Vender Tudo
+              Produtos que Mais Vendem
             </h1>
             <div :class="$vuetify.breakpoint.smAndUp ? 'title font-weight-light' : 'title font-weight-thin'">
-              Mais Representações a melhor assessoria para as compras de sua loja no Rio Grande do Sul.
+              MaisRep a melhor assessoria para as compras de sua loja no Rio Grande do Sul.
             </div>
           </v-col>
         </v-slide-x-transition>
