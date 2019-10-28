@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from "vuex"
 
 export default {
   name: "App",
@@ -24,19 +24,16 @@ export default {
   },
   data: () => ({
     //
-  }) /* 
-    created () {
-        this.setUsuario(null)
-    },
-    methods: mapActions(['setUsuario']) */,
-
+  }),
   created() {
     this.$vuetify.theme.dark = true;
+    this.setUsuario(null)
   },
   beforeDestroy() {
-    this.$vuetify.theme.dark = false;
-  }
-};
+    this.$vuetify.theme.dark = false
+  },
+  methods: mapActions(['setUsuario'])
+}
 </script>
 
 

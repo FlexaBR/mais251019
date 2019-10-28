@@ -1,6 +1,7 @@
 type Usuario {
     id: Int
     nome: String!
+    sobreNome: String!
     email: String!
     ativo: Boolean
     token: String
@@ -8,12 +9,14 @@ type Usuario {
 }
 input UsuarioInput {
     nome: String
+    sobreNome: String
     email: String
     senha: String
     perfis: [PerfilFiltro]
 }
 input UsuarioRegistrarInput {
     nome: String!
+    sobreNome: String!
     email: String!
     senha: String!
 }

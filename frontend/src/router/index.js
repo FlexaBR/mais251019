@@ -6,6 +6,7 @@ import Dashboard from '@/views/login/Dashboard'
 import AdminPages from '@/components/admin/AdminPages'
 import Register from '@/views/logoff/Register'
 import Login from '@/views/logoff/Login'
+import Analise from '@/views/logoff/Analise'
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,11 @@ const routes = [
     name: 'login',
     path: '/login',
     component: Login
+  },
+  {
+    name: 'analise',
+    path: '/analise',
+    component: Analise
   },
   {
     path: '/about',

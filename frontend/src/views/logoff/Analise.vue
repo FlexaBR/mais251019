@@ -63,27 +63,18 @@
 
   export default {
     name: 'Analise',
-
     components: {
-      PagesHeading: () => import('./components/Heading'),
+      PagesHeading: () => import('../../components/comum/Heading'),
     },
-
     data: () => ({
       sections: [
         {
           icon: 'mdi-clipboard-check-outline',
           iconColor: 'primary',
           title: 'Adequação de Perfil',
-          text: `Faremos uma breve análise para adequar seu perfil ao +APP e em seguida lhe enviaremos um e-mail com todas as instruções.`,
-        },
-      ],
-    }),
+          text: `Faremos uma breve análise para adequar seu perfil ao +APP e em seguida lhe enviaremos um e-mail com todas as instruções de acesso e uso.`,
+        }
+      ]
+    })
   }
 </script>
-
-<style lang="sass">
-  #register
-    .v-list-item__subtitle
-      -webkic-line-clamp: initial
-      -webkit-box-orient: initial
-</style>

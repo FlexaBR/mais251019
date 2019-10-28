@@ -9,6 +9,7 @@ const mutations = {
         return mutations.novoUsuario(_, {
             dados: {
                 nome: dados.nome,
+                sobreNome: dados.sobreNome,
                 email: dados.email,
                 senha: dados.senha,
             }

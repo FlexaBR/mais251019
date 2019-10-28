@@ -1,97 +1,106 @@
 <template>
-  <v-container
+   <v-container
     id="login"
-    tag="section"
     fluid
+    tag="section"
     class="cyan fill-height"
   >
-    <v-row justify="center">
-      <v-slide-y-transition appear>
-        <v-card
-          color="success"
-          light
-          max-width="100%"
-          width="360"
-          class="px-5 py-3"
-        >
-          <template v-slot:heading>
-            <div class="text-center">
-              <h1 class="display-2 font-weight-light">
-                Entrar
-              </h1>
-            </div>
-          </template>
-          <div v-if="erros">
-            <erros :erros="erros" />
-          </div>
-
-          <v-card-text class="text-center">
-            <v-text-field
-              v-model="usuario.email"
-              color="secondary"
-              class="mt-6"
-              label="Email..."
-              prepend-icon="mdi-email"
-            />
-
-            <v-text-field
-              v-model="usuario.senha"
-              class="mb-8"
-              color="secondary"
-              label="Senha..."
-              prepend-icon="mdi-lock-outline"
-              type="password"
-            />
-
-            <btn
-              large
-              color
-              depressed
-              class="v-btn--text success--text"
-              @click="login"
-            >
+    <v-row
+      justify="center"
+      class="mt-12"
+    >
+      <v-col>
+        <v-slide-y-transition appear>
+          <v-card
+            class="pa-3 pa-md-5 mx-12"
+            light
+          >
+            <heading class="text-center display-3">
               Entrar
-            </btn>
-          </v-card-text>
-        </v-card>
-      </v-slide-y-transition>
+            </heading>
+            <div v-if="erros">
+              <erros :erros="erros" />
+            </div>
+            <v-row>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <div class="text-center">
+                  
+                  <v-text-field
+                    v-model="usuario.email"
+                    color="secondary"
+                    label="Email..."
+                    prepend-icon="mdi-email"
+                  />
+
+                  <v-text-field
+                    v-model="usuario.senha"
+                    color="secondary"
+                    label="Senha..."
+                    prepend-icon="mdi-lock-outline"
+                    type="password"
+                  />
+
+                  <v-text-field
+                    name="confirmPassword"
+                    color="secondary"
+                    label="Confirme a senha..."
+                    prepend-icon="mdi-lock-outline"
+                    type="password"
+                  />
+
+                  <btn
+                    color="success"
+                    @click="login"
+                  >
+                    Entrar
+                  </btn>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-slide-y-transition>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  import Erros from '../../components/comum/Erros'
-  import gql from 'graphql-tag'
+import { mapActions } from "vuex"
+import Erros from "../../components/comum/Erros"
+import gql from "graphql-tag"
 
-  export default {
-    name: 'Login',
-    components: {
-      Erros,
-      Btn: () => import('../../components/comum/Btn'),
-    },
-    data () {
-      return {
-        usuario: {},
-        dados: null,
-        erros: null,
-      }
-    },
-    computed: {
-      perfis () {
-        return (
-          this.dados &&
-          this.dados.perfis &&
-          this.dados.perfis.map(p => p.nome).join(',')
-        )
-      },
-    },
-    methods: {
-      ...mapActions(['setUsuario']),
-      login () {
-        this.$api
-          .query({
-            query: gql`
+export default {
+  name: "Login",
+  components: {
+    Erros,
+    Btn: () => import("../../components/comum/Btn"),
+    Heading: () => import("../../components/comum/Heading")
+  },
+  data() {
+    return {
+      usuario: {},
+      dados: null,
+      erros: null
+    }
+  },
+  computed: {
+    perfis() {
+      return (
+        this.dados &&
+        this.dados.perfis &&
+        this.dados.perfis.map(p => p.nome).join(",")
+      )
+    }
+  },
+  methods: {
+    ...mapActions(["setUsuario"]),
+    login() {
+      this.$api
+        .query({
+          query: gql`
             query($email: String!, $senha: String!) {
               login(dados: { email: $email, senha: $senha }) {
                 id
@@ -104,22 +113,22 @@
               }
             }
           `,
-            variables: {
-              email: this.usuario.email,
-              senha: this.usuario.senha,
-            },
-          })
-          .then(resultado => {
-            this.dados = resultado.data.login
-            this.usuario = {}
-            this.erros = null
-            this.setUsuario(this.dados)
-            this.$router.push(this.$route.query.redirect || '/dashboard')
-          })
-          .catch(e => {
-            this.erros = e
-          })
-      },
-    },
+          variables: {
+            email: this.usuario.email,
+            senha: this.usuario.senha
+          }
+        })
+        .then(resultado => {
+          this.dados = resultado.data.login;
+          this.usuario = {};
+          this.erros = null;
+          this.setUsuario(this.dados);
+          this.$router.push(this.$route.query.redirect || "/dashboard");
+        })
+        .catch(e => {
+          this.erros = e;
+        })
+    }
   }
+}
 </script>
