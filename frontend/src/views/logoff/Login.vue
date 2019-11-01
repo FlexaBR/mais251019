@@ -1,90 +1,67 @@
 <template>
-   <v-container
-    id="login"
-    fluid
-    tag="section"
-    class="cyan fill-height"
+  <v-img
+    class="login"
+    :src="require('@/assets/budd9.jpg')"
+    gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .1)"
+    min-height="100%"
+    max-height="600px"
   >
-    <v-row
-      justify="center"
-      class="mt-12"
-    >
-      <v-col>
-        <v-slide-y-transition appear>
-          <v-card
-            class="pa-3 pa-md-5 mx-12"
-            light
-          >
-            <heading class="text-center display-3">
-              Entrar
-            </heading>
-            <div v-if="erros">
-              <erros :erros="erros" />
-            </div>
-            <v-row>
-              <v-col
-                cols="12"
-                md="6"
-              >
-                <div class="text-center">
-                  
-                  <v-text-field
-                    v-model="usuario.email"
-                    color="secondary"
-                    label="Email..."
-                    prepend-icon="mdi-email"
-                  />
-
-                  <v-text-field
-                    v-model="usuario.senha"
-                    color="secondary"
-                    label="Senha..."
-                    prepend-icon="mdi-lock-outline"
-                    type="password"
-                  />
-
-                  <v-text-field
-                    name="confirmPassword"
-                    color="secondary"
-                    label="Confirme a senha..."
-                    prepend-icon="mdi-lock-outline"
-                    type="password"
-                  />
-
-                  <btn
-                    color="success"
-                    @click="login"
-                  >
-                    Entrar
-                  </btn>
-                </div>
-              </v-col>
-            </v-row>
+    <v-container id="login" tag="section" :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+      <v-layout justify-center align-center :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+        <v-flex xs12 sm6 md4 lg3 xl3 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+          <v-card class="elevation-12" light :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-3']">
+            <v-toolbar color="cyan" dark>
+              <v-toolbar-title>Entrar</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <div v-if="erros">
+                <Erros :erros="erros" />
+              </div>
+              <v-progress-circular v-show="isLoading" indeterminate color="white" width="2"></v-progress-circular>
+            </v-toolbar>
+            <v-card-text>
+              <v-form>
+                <v-text-field
+                  prepend-icon="mdi-email"
+                  name="email"
+                  label="Email..."
+                  type="email"
+                  v-model="usuario.email"
+                  color="black"
+                ></v-text-field>
+                <v-text-field
+                  name="password"
+                  label="Senha..."
+                  type="password"
+                  v-model="usuario.senha"
+                  prepend-icon="mdi-lock-outline"
+                ></v-text-field>
+              </v-form>
+              <v-btn block depressed @click="login" color="cyan" dark>Entrar</v-btn>
+            </v-card-text>
           </v-card>
-        </v-slide-y-transition>
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-img>
 </template>
 
 <script>
-import { mapActions } from "vuex"
-import Erros from "../../components/comum/Erros"
-import gql from "graphql-tag"
+import { mapActions } from "vuex";
+import Erros from "../../components/comum/Erros";
+import gql from "graphql-tag";
 
 export default {
   name: "Login",
   components: {
-    Erros,
-    Btn: () => import("../../components/comum/Btn"),
-    Heading: () => import("../../components/comum/Heading")
+    Erros
   },
   data() {
     return {
       usuario: {},
       dados: null,
-      erros: null
-    }
+      erros: null,
+      isLoading: false
+    };
   },
   computed: {
     perfis() {
@@ -92,7 +69,7 @@ export default {
         this.dados &&
         this.dados.perfis &&
         this.dados.perfis.map(p => p.nome).join(",")
-      )
+      );
     }
   },
   methods: {
@@ -127,8 +104,8 @@ export default {
         })
         .catch(e => {
           this.erros = e;
-        })
+        });
     }
   }
-}
+};
 </script>

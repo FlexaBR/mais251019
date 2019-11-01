@@ -1,7 +1,9 @@
 <template>
-    <footer class="footer">
-        <span> Flexa©2019</span>
-    </footer>
+  <footer class="footer">
+    <div
+      class="caption font-weight-light"
+    >Flexa©2019</div>
+  </footer>
 </template>
 
 <script>
@@ -11,14 +13,14 @@ export default {
 </script>
 
 <style>
-    .footer {
-        grid-area: footer;
-        background-color: #DDD;
-        color: #333;
+.footer {
+  grid-area: footer;
+  background-color: #ddd;
+  color: #333;
 
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding-right: 10px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
 </style>

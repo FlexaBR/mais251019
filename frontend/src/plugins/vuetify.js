@@ -4,22 +4,23 @@ import Vuetify from 'vuetify/lib'
 Vue.use(Vuetify)
 
 const theme = {
-  primary1: '#E91E63',
-  secondary1: '#9C27b0',
-  accent1: '#9C27b0',
-  info1: '#00CAE3',
+  primary: '#E91E63',
+  secondary: '#9C27b0',
+  accent: '#9C27b0',
+  info: '#00CAE3',
   caribe: '#22f2ff',
   vinho: '#3B125F',
   telha: '#ef9173',
   laranja: '#EF6C00',
   amber: '#FFA000',
   cyan: '#0097A7',
+  tertiary: '#495057',
 
-  primary: '#FF8040',
-  secondary: '#424242',
-  accent: '#82B1FF',
+  primary2: '#FF8040',
+  secondary2: '#424242',
+  accent2: '#82B1FF',
   error: '#FF5252',
-  info: '#2196F3',
+  info2: '#2196F3',
   success: '#4CAF50',
   warning: '#FFC107'
 }

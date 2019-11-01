@@ -1,3 +1,3 @@
 import './chartist'
-import './components'
 import './graphql'
+import './base'

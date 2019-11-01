@@ -9,7 +9,7 @@ module.exports = {
         const usuarioInfo = {
             id: usuario.id,
             nome: usuario.nome,
-            sobreNome: usuario.sobreNome,
+            atividade: usuario.atividade,
             email: usuario.email,
             ativo: usuario.ativo,
             perfis: perfis.map(p => p.nome),

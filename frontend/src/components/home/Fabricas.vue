@@ -1,10 +1,10 @@
 <template>
   <v-container
-    id="goals"
+    id="fabricas"
     class="py-5 black--text"
     tag="section"
   >
-    <heading>As Campeãs</heading>
+    <heading>Nossas Campeãs</heading>
 
     <v-row>
       <v-col
@@ -17,7 +17,6 @@
       >
         <v-card
           light
-          outlined
           max-width="100%"
           class="mt-1"
         >
@@ -38,31 +37,31 @@
 </template>
 
 <script>
-  import Heading from '../../components/comum/Heading'
+import Heading from '../../components/comum/Heading'
 
-  export default {
-    components: {
-      Heading
-    },
-    data: () => ({
-      features: [
-        {
-          title: 'Boutique de Aromas',
-          text: 'Para cada sentido uma sensação, para cada sensação um aroma e para cada aroma uma lembrança. Inspirar o bem viver e encantar a vida das pessoas através das essências é a missão da Boutique de Aromas.',
-          src: '/static/home/boutique/banner1.jpg',
-        },
-        {
-          title: 'Buddemeyer',
-          text: 'Sempre com foco nas tendências mundiais de moda, qualidade e excelência na fabricação de novos produtos, a Buddemeyer conquistou a liderança nacional no segmento top do mercado de cama, mesa e banho, além de ser reconhecida como marca de qualidade nos países para onde exporta.',
-          src: '/static/home/budd/Princess-2019-1270x758.jpg',
-        },
-        {
-          title: 'DelRio',
-          text: 'Há 50 anos no setor de lingerie, a empresa fez parte da história da evolução das roupas íntimas e hoje está entre as três maiores fabricantes de lingerie do Brasil. A DelRio acompanha as tendências da moda mundial e está sempre atenta ao seu público. Sua equipe de designers desenvolve estampas exclusivas seguindo um processo criativo contínuo, resultando em linhas de produtos modernas, atuais e de altíssima qualidade.',
-          src: '/static/home/delrio/delrio_9715_posts_blog_noivas_v1_-_post_2_0.png',
-        }
-      ]
-    })
-  }
+export default {
+  components: {
+    Heading
+  },
+  data: () => ({
+    features: [
+      {
+        title: 'Boutique de Aromas',
+        text: 'Para cada sentido uma sensação, para cada sensação um aroma e para cada aroma uma lembrança. Inspirar o bem viver e encantar a vida das pessoas através das essências é a missão da Boutique de Aromas.',
+        src: '/static/home/boutique/banner1.jpg'
+      },
+      {
+        title: 'Buddemeyer',
+        text: 'Sempre com foco nas tendências mundiais de moda, qualidade e excelência na fabricação de novos produtos, a Buddemeyer conquistou a liderança nacional no segmento top do mercado de cama, mesa e banho, além de ser reconhecida como marca de qualidade nos países para onde exporta.',
+        src: '/static/home/budd/Princess-2019-1270x758.jpg'
+      },
+      {
+        title: 'DelRio',
+        text: 'Há 50 anos no setor de lingerie, a empresa fez parte da história da evolução das roupas íntimas e hoje está entre as três maiores fabricantes de lingerie do Brasil. A DelRio acompanha as tendências da moda mundial e está sempre atenta ao seu público. Sua equipe de designers desenvolve estampas exclusivas seguindo um processo criativo contínuo, resultando em linhas de produtos modernas, atuais e de altíssima qualidade.',
+        src: '/static/home/delrio/delrio_9715_posts_blog_noivas_v1_-_post_2_0.png'
+      }
+    ]
+  })
+}
 
 </script>

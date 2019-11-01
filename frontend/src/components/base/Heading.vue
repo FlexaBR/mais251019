@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'BaseHeading'
-  }
+export default {
+  name: 'BaseHeading'
+}
 </script>

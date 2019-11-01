@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
         table.increments('id').primary()
         table.string('nome').notNull()
         table.string('sobreNome').notNull()
+        table.string('atividade').notNull()
         table.string('email').notNull().unique()
         table.string('senha', 60)
         table.boolean('ativo').notNull().defaultTo(true)

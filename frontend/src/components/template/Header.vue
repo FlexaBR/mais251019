@@ -20,7 +20,7 @@
             <v-app-bar-nav-icon v-else aria-label="Open Navigation Drawer" @click="toggleDrawer" />
           </v-row>
         </v-container>
-      
+
     </div>
     <div v-if="usuario">
       <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
@@ -36,28 +36,28 @@
 </template>
 
 <script>
-import UserDropdown from "./UserDropdown";
-import { mapState } from "vuex";
+import UserDropdown from './UserDropdown'
+import { mapState } from 'vuex'
 
 export default {
-  name: "Header",
+  name: 'Header',
 
   data: () => ({
     items: [
       {
-        icon: "mdi-home",
-        text: "Home",
-        to: "/home"
+        icon: 'mdi-home',
+        text: 'Home',
+        to: '/home'
       },
       {
-        icon: "mdi-account-multiple-plus",
-        text: "Registro",
-        to: "/register"
+        icon: 'mdi-account-multiple-plus',
+        text: 'Registro',
+        to: '/register'
       },
       {
-        icon: "mdi-fingerprint",
-        text: "Entrar",
-        to: "/login"
+        icon: 'mdi-fingerprint',
+        text: 'Entrar',
+        to: '/login'
       }
     ]
   }),
@@ -69,19 +69,19 @@ export default {
     hideUserDropdown: Boolean
   },
   computed: {
-    ...mapState(["usuario"]),
-    icon() {
+    ...mapState(['usuario']),
+    icon () {
       return this.$store.state.isMenuVisible
-        ? "fa-angle-left"
-        : "fa-angle-down";
+        ? 'fa-angle-left'
+        : 'fa-angle-down'
     }
   },
   methods: {
-    toggleMenu() {
-      this.$store.commit("toggleMenu");
+    toggleMenu () {
+      this.$store.commit('toggleMenu')
     }
   }
-};
+}
 // text-decoration: none; para não ficar com cara de link
 // display: flex; para centralizar o icone
 </script>

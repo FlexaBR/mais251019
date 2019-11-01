@@ -29,6 +29,6 @@
 
 <script>
 export default {
-  name: "Contato"
+  name: 'Contato'
 }
 </script>
