@@ -1,60 +1,64 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/logoff/Home.vue'
-
-import Dashboard from '@/views/login/Dashboard'
-import AdminPages from '@/components/admin/AdminPages'
-import Register from '@/views/logoff/Register'
-import Login from '@/views/logoff/Login'
-import Analise from '@/views/logoff/Analise'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    redirect: '/home',
+    component: () => import('@/views/pages/Index'),
     children: [
+      {
+        name: 'Analise',
+        path: 'analise',
+        component: () => import('@/views/pages/Analise')
+      },
+      {
+        name: 'Error',
+        path: 'error',
+        component: () => import('@/views/pages/Error')
+      },
       {
         name: 'Home',
         path: 'home',
-        component: Home
+        component: () => import('@/views/pages/Home')
+      },
+      {
+        name: 'Login',
+        path: 'login',
+        component: () => import('@/views/pages/Login')
+      },
+      {
+        name: 'Register',
+        path: 'register',
+        component: () => import('@/views/pages/Register')
+      }
+    ]
+  },
+
+  {
+    path: '/dashboard',
+    component: () => import('@/views/dashboard/Index'),
+    children: [
+      // Dashboard
+      {
+        name: 'Dashboard',
+        path: '',
+        component: () => import('@/views/dashboard/Dashboard')
       }
     ]
   },
   {
-    name: 'dashboard',
-    path: '/dashboard',
-    component: Dashboard
-  },
-  {
-    name: 'adminPages',
-    path: '/admin',
-    component: AdminPages
-  },
-  {
-    name: 'register',
-    path: '/register',
-    component: Register
-  },
-  {
-    name: 'login',
-    path: '/login',
-    component: Login
-  },
-  {
-    name: 'analise',
-    path: '/analise',
-    component: Analise
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '*',
+    component: () => import('@/views/pages/Index'),
+    children: [
+      {
+        name: '404 Error',
+        path: '',
+        component: () => import('@/views/pages/Error')
+      }
+    ]
   }
 ]
 

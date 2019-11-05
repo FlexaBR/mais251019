@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid id="register" tag="section">
+  <v-container fluid class="bluegrad" tag="section">
     <v-row justify="center" class="mt-12">
       <v-col cols="10" class="mt-12">
         <v-slide-y-transition appear>
@@ -49,7 +49,8 @@
                     label="Sobrenome..."
                     prepend-icon="mdi-face"
                   />
-                  <v-combobox
+                  <v-select
+                    dense
                     v-model="usuario.atividade"
                     color="secondary"
                     label="Sou..."
@@ -76,7 +77,7 @@
                     prepend-icon="mdi-lock-outline"
                     type="password"
                   />
-                  <base-btn color="success" @click="registrar">Registrar</base-btn>
+                  <base-btn color="#1e469a" dark @click="registrar">Registrar</base-btn>
                 </div>
               </v-col>
             </v-row>
@@ -175,10 +176,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  #register {
-    background: linear-gradient(to right, #1e469a, #49a7c1);
-  }
-
-</style>

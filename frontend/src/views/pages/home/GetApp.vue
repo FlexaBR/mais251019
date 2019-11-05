@@ -1,6 +1,6 @@
 <template>
   <v-alert
-    color="cyan"
+    color='cyan'
     dark
     dense
     tile

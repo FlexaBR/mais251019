@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar id="template-app-bar" absolute color="transparent" flat height="88">
+  <v-app-bar id="template-app-bar" absolute color="transparent" flat height="75">
     <v-container>
       <div v-if="!usuario">
         <v-row align="center">
@@ -16,12 +16,13 @@
       </div>
 
       <div v-if="usuario">
-        <v-toolbar-title class="tertiary--text font-weight-light align-self-center">
-          <v-btn v-if="responsive" dark icon @click.stop="onClick">
-            <v-icon>mdi-view-list</v-icon>
-          </v-btn>
-          {{ title }}
-        </v-toolbar-title>
+        <v-btn
+          fab
+          small
+        >
+          <v-icon v-if="value">mdi-view-quilt</v-icon>
+          <v-icon v-else>mdi-dots-vertical</v-icon>
+        </v-btn>
       </div>
     </v-container>
   </v-app-bar>
@@ -56,6 +57,13 @@ export default {
     ]
   }),
 
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   watch: {
     $route (val) {
       this.title = val.name
@@ -71,11 +79,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['usuario'])
+    ...mapState(['usuario'], ['menu'])
   },
 
   methods: {
-    ...mapMutations(['toggleDrawer']),
+    ...mapMutations(['setMenu', 'toggleDrawer']),
     onClick () {
       this.setDrawer(!this.$store.state.app.drawer)
     },
@@ -91,12 +99,12 @@ export default {
 </script>
 
 <style>
-  /* Fix coming in v2.0.8 */
-  #template-app-bar {
-    width: auto;
-  }
+/* Fix coming in v2.0.8 */
+#template-app-bar {
+  width: auto;
+}
 
-  #template-app-bar a {
-    text-decoration: none;
-  }
+#template-app-bar a {
+  text-decoration: none;
+}
 </style>

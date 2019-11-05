@@ -7,12 +7,13 @@ export default {
   },
   setDrawer: set('drawer'),
   toggleDrawer: toggle('drawer'),
-  toggleMenu (state, isVisible) {
-    if (isVisible === undefined) {
-      state.isMenuVisible = !state.isMenuVisible
-    } else {
-      state.isMenuVisible = isVisible
-    }
+
+  SET_BAR_IMAGE (state, payload) {
+    state.barImage = payload
+  },
+
+  SET_DRAWER (state, payload) {
+    state.drawer = payload
   }
   /* toggleMenu (state, isVisible) {
     if (!state.usuario) {

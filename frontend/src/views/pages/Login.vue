@@ -1,16 +1,15 @@
 <template>
   <v-img
-    class="login"
     :src="require('@/assets/budd9.jpg')"
     gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .1)"
     min-height="100%"
     max-height="600px"
   >
-    <v-container id="login" tag="section" :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+    <v-container id="login" tag="section" :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-9']">
       <v-layout justify-center align-center :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
-        <v-flex xs12 sm6 md4 lg3 xl3 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
-          <v-card class="elevation-12" light :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-3']">
-            <v-toolbar color="cyan" dark>
+        <v-flex xs10 sm6 md3 lg3 xl3 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+          <v-card class="elevation-12" light :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+            <v-toolbar class="bluegrad" dark>
               <v-toolbar-title>Entrar</v-toolbar-title>
               <v-spacer></v-spacer>
               <div v-if="erros">
@@ -36,7 +35,7 @@
                   prepend-icon="mdi-lock-outline"
                 ></v-text-field>
               </v-form>
-              <v-btn block depressed @click="login" color="cyan" dark>Entrar</v-btn>
+              <v-btn block depressed @click="login" color="#1e469a" dark>Entrar</v-btn>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -46,35 +45,35 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import Erros from "../../components/comum/Erros";
-import gql from "graphql-tag";
+import { mapActions } from 'vuex'
+import Erros from '../../components/comum/Erros'
+import gql from 'graphql-tag'
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     Erros
   },
-  data() {
+  data () {
     return {
       usuario: {},
       dados: null,
       erros: null,
       isLoading: false
-    };
+    }
   },
   computed: {
-    perfis() {
+    perfis () {
       return (
         this.dados &&
         this.dados.perfis &&
-        this.dados.perfis.map(p => p.nome).join(",")
-      );
+        this.dados.perfis.map(p => p.nome).join(',')
+      )
     }
   },
   methods: {
-    ...mapActions(["setUsuario"]),
-    login() {
+    ...mapActions(['setUsuario']),
+    login () {
       this.$api
         .query({
           query: gql`
@@ -96,16 +95,16 @@ export default {
           }
         })
         .then(resultado => {
-          this.dados = resultado.data.login;
-          this.usuario = {};
-          this.erros = null;
-          this.setUsuario(this.dados);
-          this.$router.push(this.$route.query.redirect || "/dashboard");
+          this.dados = resultado.data.login
+          this.usuario = {}
+          this.erros = null
+          this.setUsuario(this.dados)
+          this.$router.push(this.$route.query.redirect || '/dashboard')
         })
         .catch(e => {
-          this.erros = e;
-        });
+          this.erros = e
+        })
     }
   }
-};
+}
 </script>

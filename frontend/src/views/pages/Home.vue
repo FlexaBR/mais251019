@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import Contato from '../../components/home/Contato'
-import Fabricas from '../../components/home/Fabricas'
-import GetApp from '../../components/home/GetApp'
+import Contato from './home/Contato'
+import Fabricas from './home/Fabricas'
+import GetApp from './home/GetApp'
 import Heading from '../../components/comum/Heading'
-import Jumbotron from '../../components/home/Jumbotron'
-import Testimonial from '../../components/home/Testimonial'
+import Jumbotron from './home/Jumbotron'
+import Testimonial from './home/Testimonial'
 
 export default {
   name: 'Home',
@@ -45,6 +45,7 @@ export default {
     Testimonial
   },
   data: () => ({
+    usuario: {},
     testimonials: [
       {
         blurb:

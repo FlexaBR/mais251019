@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Heading from '../../components/comum/Heading'
+import Heading from '../../../components/comum/Heading'
 
 export default {
   components: {
