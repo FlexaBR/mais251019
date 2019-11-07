@@ -43,12 +43,6 @@
                     label="Nome..."
                     prepend-icon="mdi-face"
                   />
-                  <v-text-field
-                    v-model="usuario.sobreNome"
-                    color="secondary"
-                    label="Sobrenome..."
-                    prepend-icon="mdi-face"
-                  />
                   <v-select
                     dense
                     v-model="usuario.atividade"
@@ -131,7 +125,6 @@ export default {
           mutation: gql`
             mutation(
               $nome: String!
-              $sobreNome: String!
               $atividade: String!
               $email: String!
               $senha: String!
@@ -139,7 +132,6 @@ export default {
               registrarUsuario(
                 dados: {
                   nome: $nome
-                  sobreNome: $sobreNome
                   atividade: $atividade
                   email: $email
                   senha: $senha
@@ -147,7 +139,6 @@ export default {
               ) {
                 id
                 nome
-                sobreNome
                 atividade
                 email
                 perfis {
@@ -158,7 +149,6 @@ export default {
           `,
           variables: {
             nome: this.usuario.nome,
-            sobreNome: this.usuario.sobreNome,
             atividade: this.usuario.atividade,
             email: this.usuario.email,
             senha: this.usuario.senha

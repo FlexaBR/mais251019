@@ -1,7 +1,6 @@
 <template>
-  <v-content>
+  <v-content style="background-color: #efefef;">
     <router-view />
-
     <dashboard-footer />
   </v-content>
 </template>
@@ -12,6 +11,5 @@ export default {
   components: {
     DashboardFooter: () => import('./Footer')
   }
-
 }
 </script>

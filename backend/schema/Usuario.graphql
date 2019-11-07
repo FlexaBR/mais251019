@@ -1,7 +1,6 @@
 type Usuario {
     id: Int
     nome: String!
-    sobreNome: String!
     atividade: String!
     email: String!
     ativo: Boolean
@@ -10,7 +9,6 @@ type Usuario {
 }
 input UsuarioInput {
     nome: String
-    sobreNome: String
     atividade: String
     email: String
     senha: String
@@ -18,7 +16,6 @@ input UsuarioInput {
 }
 input UsuarioRegistrarInput {
     nome: String!
-    sobreNome: String!
     atividade: String!
     email: String!
     senha: String!
