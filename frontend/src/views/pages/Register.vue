@@ -4,7 +4,7 @@
       <v-col cols="10" class="mt-12">
         <v-slide-y-transition appear>
           <v-card class="pa-3 pa-md-5 mx-auto" light>
-            <heading class="text-center display-3">Registro</heading>
+            <base-heading class="text-center display-3">Registro</base-heading>
             <div v-if="erros">
               <erros :erros="erros" />
             </div>
@@ -38,12 +38,17 @@
               <v-col cols="12" md="6">
                 <div class="text-center">
                   <v-text-field
-                    v-model="usuario.nome"
+                    name="name"
+                    type="text"
+                    :error-messages="nameErrors"
+                    :success="!$v.usuario.nome.$invalid"
+                    v-model.trim="$v.usuario.nome.$model"
                     color="secondary"
                     label="Nome..."
                     prepend-icon="mdi-face"
                   />
                   <v-select
+                    name="atividade"
                     dense
                     v-model="usuario.atividade"
                     color="secondary"
@@ -52,13 +57,20 @@
                     :items="items"
                   />
                   <v-text-field
-                    v-model="usuario.email"
+                    name="email"
+                    type="email"
+                    :error-messages="emailErrors"
+                    :success="!$v.usuario.email.$invalid"
+                    v-model.trim="$v.usuario.email.$model"
                     color="secondary"
                     label="Email..."
                     prepend-icon="mdi-email"
                   />
                   <v-text-field
-                    v-model="usuario.senha"
+                    name="password"
+                    :error-messages="passwordErrors"
+                    :success="!$v.usuario.senha.$invalid"
+                    v-model.trim="$v.usuario.senha.$model"
                     color="secondary"
                     label="Senha..."
                     prepend-icon="mdi-lock-outline"
@@ -70,8 +82,11 @@
                     label="Confirme a senha..."
                     prepend-icon="mdi-lock-outline"
                     type="password"
-                  />
-                  <base-btn color="#1e469a" dark @click="registrar">Registrar</base-btn>
+                    :error-messages="confirmPasswordErrors"
+                    :success="!$v.usuario.confirmPassword.$invalid"
+                    v-model.trim="$v.usuario.confirmPassword.$model"
+                   />
+                  <base-btn color="#1e469a" dark @click="registrar" :disabled="$v.$invalid">Registrar</base-btn>
                 </div>
               </v-col>
             </v-row>
@@ -85,16 +100,21 @@
 <script>
 import Erros from '../../components/comum/Erros'
 import gql from 'graphql-tag'
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Register',
 
   components: {
-    Erros,
-    Heading: () => import('../../components/comum/Heading')
+    Erros
   },
   data: () => ({
-    usuario: {},
+    usuario: {
+      nome: '',
+      email: '',
+      senha: '',
+      confirmPassword: ''
+    },
     erros: null,
     sections: [
       {
@@ -118,6 +138,65 @@ export default {
     ],
     items: ['Logista', 'Preposto ou Representante']
   }),
+  validations () {
+    const validations = {
+      usuario: {
+        nome: {
+          required,
+          minLength: minLength(6)
+        },
+        email: {
+          required,
+          email
+        },
+        senha: {
+          required,
+          minLength: minLength(4)
+        },
+        confirmPassword: {
+          required,
+          minLength: minLength(4),
+          sameAs: sameAs('senha')
+        }
+      }
+    }
+    return validations
+  },
+  computed: {
+    nameErrors () {
+      const errors = []
+      const name = this.$v.usuario.nome
+      if (!name.$dirty) { return errors }
+      !name.required && errors.push('Nome é obrigatório!')
+      !name.minLength && errors.push(`Insira pelo menos ${name.$params.minLength.min} caracteres!`)
+      return errors
+    },
+    emailErrors () {
+      const errors = []
+      const email = this.$v.usuario.email
+      if (!email.$dirty) { return errors }
+      !email.required && errors.push('Email é obrigatório!')
+      !email.email && errors.push('Insira um email válido!')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      const password = this.$v.usuario.senha
+      if (!password.$dirty) { return errors }
+      !password.required && errors.push('Senha é obrigatória!')
+      !password.minLength && errors.push(`Insira pelo menos ${password.$params.minLength.min} caracteres!`)
+      return errors
+    },
+    confirmPasswordErrors () {
+      const errors = []
+      const confirmPassword = this.$v.usuario.confirmPassword
+      if (!confirmPassword.$dirty) { return errors }
+      !confirmPassword.required && errors.push('Repita a senha!')
+      !confirmPassword.minLength && errors.push(`Insira pelo menos ${confirmPassword.$params.minLength.min} caracteres!`)
+      !confirmPassword.sameAs && errors.push('Senha deve ser identica!')
+      return errors
+    }
+  },
   methods: {
     registrar () {
       this.$api

@@ -1,7 +1,7 @@
 <template>
-  <h1 class="display-4 font-weight-light">
+   <h2 class="display-1 font-weight-light text-center mb-5">
     <slot />
-  </h1>
+  </h2>
 </template>
 
 <script>

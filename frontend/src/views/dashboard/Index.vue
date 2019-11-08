@@ -9,17 +9,17 @@
 </template>
 
 <script>
-  export default {
-    name: 'DashboardIndex',
+export default {
+  name: 'DashboardIndex',
 
-    components: {
-      DashboardBar: () => import('./core/Bar'),
-      DashboardDrawer: () => import('./core/Drawer'),
-      DashboardView: () => import('./core/View')
-    },
+  components: {
+    DashboardBar: () => import('./core/Bar'),
+    DashboardDrawer: () => import('./core/Drawer'),
+    DashboardView: () => import('./core/View')
+  },
 
-    data: () => ({
-      expandOnHover: false
-    })
-  }
+  data: () => ({
+    expandOnHover: false
+  })
+}
 </script>

@@ -114,25 +114,6 @@ export default {
           {
             title: 'buttons',
             to: 'buttons'
-          },
-          {
-            title: 'grid',
-            to: 'grid-system'
-          }
-        ]
-      },
-      {
-        group: '/forms',
-        icon: 'mdi-clipboard-outline',
-        title: 'forms',
-        children: [
-          {
-            title: 'rforms',
-            to: 'regular'
-          },
-          {
-            title: 'eforms',
-            to: 'extended'
           }
         ]
       }
@@ -161,11 +142,11 @@ export default {
         children: [
           {
             href: '',
-            title: 'my-profile'
+            title: 'Meu Perfil'
           },
           {
             to: '',
-            title: 'edit-profile'
+            title: 'Alterar Perfil'
           }
         ]
       }

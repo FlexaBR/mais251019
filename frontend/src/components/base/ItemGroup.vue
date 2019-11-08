@@ -10,9 +10,7 @@
       <v-list-item-icon v-if="text" class="v-list-item__icon--text" v-text="computedText" />
 
       <v-list-item-avatar v-else-if="item.avatar" class="align-self-center" color="grey">
-        <v-img
-          src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/avatar.jpg"
-        />
+        <Gravatar :email="usuario.email" alt="Usuario" />
       </v-list-item-avatar>
 
       <v-list-item-content>
@@ -31,10 +29,12 @@
 <script>
 // Utilities
 import kebabCase from 'lodash/kebabCase'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+import Gravatar from 'vue-gravatar'
 
 export default {
   name: 'ItemGroup',
+  components: { Gravatar },
 
   inheritAttrs: false,
 
@@ -57,9 +57,9 @@ export default {
       default: false
     }
   },
-
   computed: {
     ...mapState(['barColor']),
+    ...mapGetters(['usuario']),
     children () {
       return this.item.children.map(item => ({
         ...item,

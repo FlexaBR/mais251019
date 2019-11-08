@@ -10,7 +10,7 @@
       class="py-5 black--text"
       tag="section"
     >
-      <heading>Testemunho</heading>
+      <base-heading>Testemunho</base-heading>
       <v-row>
         <v-col
           v-for="(testimonial, i) in testimonials"
@@ -30,7 +30,6 @@
 import Contato from './home/Contato'
 import Fabricas from './home/Fabricas'
 import GetApp from './home/GetApp'
-import Heading from '../../components/comum/Heading'
 import Jumbotron from './home/Jumbotron'
 import Testimonial from './home/Testimonial'
 
@@ -40,7 +39,6 @@ export default {
     Contato,
     Fabricas,
     GetApp,
-    Heading,
     Jumbotron,
     Testimonial
   },

@@ -7,11 +7,17 @@
   >
     <v-container id="login" tag="section" :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-9']">
       <v-layout justify-center align-center :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
-        <v-flex xs10 sm6 md3 lg3 xl3 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+        <v-flex xs10 sm6 md4 lg4 xl4 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
           <v-card class="elevation-12" light :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
             <v-toolbar class="bluegrad" dark>
               <v-toolbar-title>Entrar</v-toolbar-title>
               <v-spacer></v-spacer>
+              <v-progress-circular
+                v-show="isLoading"
+                indeterminate
+                color="white"
+                width="2"
+              ></v-progress-circular>
               <div v-if="erros">
                 <Erros :erros="erros" />
               </div>
@@ -74,6 +80,7 @@ export default {
   methods: {
     ...mapActions(['setUsuario']),
     login () {
+      this.isLoading = true
       this.$api
         .query({
           query: gql`
@@ -99,6 +106,7 @@ export default {
           this.usuario = {}
           this.erros = null
           this.setUsuario(this.dados)
+          this.isLoading = false
           this.$router.push(this.$route.query.redirect || '/dashboard')
         })
         .catch(e => {

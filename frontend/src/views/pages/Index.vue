@@ -11,31 +11,29 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  
-  export default {
-    name: 'PagesIndex',
 
-    components: {
-      PagesBar: () => import('./core/Bar'),
-      PagesDrawer: () => import('./core/Drawer'),
-      PagesFooter: () => import('./core/Footer'),
-      PagesView: () => import('./core/View')
-    },
+export default {
+  name: 'PagesIndex',
 
-    created () {
-      this.$vuetify.theme.dark = true
-    },
+  components: {
+    PagesBar: () => import('./core/Bar'),
+    PagesDrawer: () => import('./core/Drawer'),
+    PagesFooter: () => import('./core/Footer'),
+    PagesView: () => import('./core/View')
+  },
 
-    beforeDestroy () {
-      this.$vuetify.theme.dark = false
-    }
+  created () {
+    this.$vuetify.theme.dark = true
+  },
+
+  beforeDestroy () {
+    this.$vuetify.theme.dark = false
   }
+}
 </script>
 
 <style>
-  .bluegrad {
-    background: linear-gradient(to right, #1e469a, #49a7c1);
-  }
+.bluegrad {
+  background: linear-gradient(to right, #1e469a, #49a7c1);
+}
 </style>
-

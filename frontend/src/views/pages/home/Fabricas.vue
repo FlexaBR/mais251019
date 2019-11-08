@@ -4,7 +4,7 @@
     class="py-5 black--text"
     tag="section"
   >
-    <heading>Nossas Campeãs</heading>
+    <base-heading>Nossas Campeãs</base-heading>
 
     <v-row>
       <v-col
@@ -37,12 +37,8 @@
 </template>
 
 <script>
-import Heading from '../../../components/comum/Heading'
 
 export default {
-  components: {
-    Heading
-  },
   data: () => ({
     features: [
       {
