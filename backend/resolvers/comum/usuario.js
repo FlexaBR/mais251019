@@ -12,7 +12,7 @@ module.exports = {
             atividade: usuario.atividade,
             email: usuario.email,
             ativo: usuario.ativo,
-            perfis: perfis.map(p => p.nome),
+            perfis: perfis.map(p => p.nomep),
             iat: agora,
             exp: agora + (3 * 24 * 60 * 60)
         }

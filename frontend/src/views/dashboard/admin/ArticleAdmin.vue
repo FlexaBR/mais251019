@@ -1,7 +1,7 @@
 <template>
-    <div class="article-admin">
-        <h1>Artigo componente</h1>
-    </div>
+  <div class="article-admin">
+    <h1>Artigo Component</h1>
+  </div>
 </template>
 
 <script>
@@ -11,5 +11,4 @@ export default {
 </script>
 
 <style>
-
 </style>

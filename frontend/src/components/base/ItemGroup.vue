@@ -14,7 +14,7 @@
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title class="body-2 font-weight-light" v-text="item.title" />
+        <v-list-item-title class="body-2 font-weight-regular my-n6" v-text="item.title" />
       </v-list-item-content>
     </template>
 

@@ -7,7 +7,7 @@
     :src="require('@/assets/dashboard/Dual.jpg')"
     mobile-break-point="960"
     app
-    width="260"
+    width="240"
   >
     <template v-slot:img="props">
       <v-img :gradient="`to bottom, ${barColor}`" v-bind="props" />
@@ -78,42 +78,32 @@ export default {
     items: [
       {
         icon: 'mdi-view-dashboard',
-        title: 'dashboard',
+        title: 'Dashboard',
         to: '/dashboard'
       },
       {
-        group: '/admin',
-        icon: 'mdi-image',
-        title: 'admin',
+        group: '',
+        icon: 'fa fa-cogs',
+        title: 'Admin',
         children: [
           {
-            title: 'pricing',
-            to: 'pricing'
+            title: 'Adm Auth',
+            to: 'dashboard/admin/adminAuth'
           },
           {
-            title: 'rtl',
-            to: 'rtl'
+            title: 'Adm Pages',
+            to: 'dashboard/admin/adminPages'
           }
         ]
       },
       {
-        group: '/fabricas',
-        icon: 'mdi-view-comfy',
-        title: 'components',
+        group: '',
+        icon: 'mdi-account-card-details-outline',
+        title: 'Cliente',
         children: [
           {
-            title: 'multi',
-            group: '',
-            children: [
-              {
-                title: 'example',
-                href: '#'
-              }
-            ]
-          },
-          {
-            title: 'buttons',
-            to: 'buttons'
+            title: 'Cadastro',
+            to: 'dashboard/cliente/cadastro'
           }
         ]
       }
@@ -143,10 +133,6 @@ export default {
           {
             href: '',
             title: 'Meu Perfil'
-          },
-          {
-            to: '',
-            title: 'Alterar Perfil'
           }
         ]
       }
@@ -179,67 +165,3 @@ export default {
   }
 }
 </script>
-
-<style lang='sass'>
-  @import '~vuetify/src/styles/tools/_rtl.sass'
-
-  #dashboard-drawer
-    &.v-navigation-drawer--mini-variant
-      .v-list-item
-        justify-content: flex-start !important
-
-      .v-list-group--sub-group
-        display: block !important
-
-    .v-list-group__header.v-list-item--active:before
-      opacity: .24
-
-    .v-list-item
-      &__icon--text,
-      &__icon:first-child
-        justify-content: center
-        text-align: center
-        width: 20px
-
-        +ltr()
-          margin-right: 24px
-          margin-left: 12px !important
-
-        +rtl()
-          margin-left: 24px
-          margin-right: 12px !important
-
-    .v-list--dense
-      .v-list-item
-        &__icon--text,
-        &__icon:first-child
-          margin-top: 10px
-
-    .v-list-group--sub-group
-      .v-list-item
-        +ltr()
-          padding-left: 8px
-
-        +rtl()
-          padding-right: 8px
-
-      .v-list-group__header
-        +ltr()
-          padding-right: 0
-
-        +rtl()
-          padding-right: 0
-
-        .v-list-item__icon--text
-          margin-top: 19px
-          order: 0
-
-        .v-list-group__header__prepend-icon
-          order: 2
-
-          +ltr()
-            margin-right: 8px
-
-          +rtl()
-            margin-left: 8px
-</style>

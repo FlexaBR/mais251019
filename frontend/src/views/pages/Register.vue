@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="bluegrad" tag="section">
+  <v-container fluid class="bluegrad" tag="section" style="min-height: 100%;">
     <v-row justify="center" class="mt-12">
       <v-col cols="10" class="mt-12">
         <v-slide-y-transition appear>
@@ -47,6 +47,8 @@
                     label="Nome..."
                     prepend-icon="mdi-face"
                   />
+                  <!-- v-model.trim remove os espaços do inicio e do fim da string-->
+                  <!-- $v estancia vuelidate-->
                   <v-select
                     name="atividade"
                     dense
@@ -136,7 +138,7 @@ export default {
         text: 'Estime uma data para novos pedidos que lembramos você.'
       }
     ],
-    items: ['Logista', 'Preposto ou Representante']
+    items: ['Logista', 'Representante']
   }),
   validations () {
     const validations = {
@@ -221,7 +223,7 @@ export default {
                 atividade
                 email
                 perfis {
-                  nome
+                  nomep
                 }
               }
             }

@@ -9,14 +9,14 @@ module.exports = {
         ctx && ctx.validarAdmin()
         
         if(!filtro) return null
-        const { id, nome } = filtro
+        const { id, nomep } = filtro
         if(id) {
             return db('perfis')
                 .where({ id })
                 .first()
-        } else if(nome) {
+        } else if(nomep) {
             return db('perfis')
-                .where({ nome })
+                .where({ nomep })
                 .first()
         } else {
             return null

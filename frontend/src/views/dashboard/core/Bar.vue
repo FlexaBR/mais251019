@@ -10,7 +10,7 @@
   >
     <v-btn
       style="color: #b6b0b0; margin-top: -5px "
-      class="mx-3"
+      class="mr-3"
       id="btnDrawer"
       fab
       small

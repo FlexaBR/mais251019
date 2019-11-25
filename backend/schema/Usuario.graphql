@@ -30,13 +30,13 @@ input UsuarioFiltro {
 }
 type Perfil {
     id: Int
-    nome: String!
+    nomep: String!
     usuarios: [Usuario]
 }
 input PerfilInput {
-    nome: String
+    nomep: String
 }
 input PerfilFiltro {
     id: Int
-    nome: String
+    nomep: String
 }

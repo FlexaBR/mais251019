@@ -13,7 +13,7 @@
     </v-list-item-icon>
 
     <v-list-item-content v-if="item.title || item.subtitle">
-      <v-list-item-title v-text="item.title" />
+      <v-list-item-title v-text="item.title" class="caption font-weight-light my-n12 py-n6"/>
 
       <v-list-item-subtitle v-text="item.subtitle" />
     </v-list-item-content>

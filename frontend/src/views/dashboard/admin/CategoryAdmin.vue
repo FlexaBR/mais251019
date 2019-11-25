@@ -1,7 +1,7 @@
 <template>
-    <div class="category-admin">
-        <h1>Categoria componente</h1>
-    </div>
+  <div class="category-admin">
+    <h1>Categoria Component</h1>
+  </div>
 </template>
 
 <script>
@@ -11,5 +11,4 @@ export default {
 </script>
 
 <style>
-
 </style>

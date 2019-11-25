@@ -12,7 +12,7 @@ const sql = `
         up.usuario_id = u.id and
         up.perfil_id = p.id and
         u.ativo = 1 and
-        p.nome = :nomePerfil
+        p.nomep = :nomePerfil
     limit 1
 `
 

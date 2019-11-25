@@ -5,6 +5,8 @@
     <dashboard-drawer :expand-on-hover.sync="expandOnHover" />
 
     <dashboard-view />
+    <dashboard-footer />
+
   </v-app>
 </template>
 
@@ -15,7 +17,8 @@ export default {
   components: {
     DashboardBar: () => import('./core/Bar'),
     DashboardDrawer: () => import('./core/Drawer'),
-    DashboardView: () => import('./core/View')
+    DashboardView: () => import('./core/View'),
+    DashboardFooter: () => import('./core/Footer')
   },
 
   data: () => ({

@@ -14,7 +14,7 @@
 <script>
 export default {
   // eslint-disable-next-line
-    props: ['erros'],
+  props: ['erros'],
   computed: {
     itens () {
       if (!this.erros) return null

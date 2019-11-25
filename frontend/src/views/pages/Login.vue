@@ -7,17 +7,11 @@
   >
     <v-container id="login" tag="section" :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-9']">
       <v-layout justify-center align-center :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
-        <v-flex xs10 sm6 md4 lg4 xl4 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
+        <v-flex xs9 sm5 md4 lg3 xl3 :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
           <v-card class="elevation-12" light :class="[$vuetify.breakpoint.smAndUp ? 'mt-12' : 'mt-6']">
             <v-toolbar class="bluegrad" dark>
               <v-toolbar-title>Entrar</v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-progress-circular
-                v-show="isLoading"
-                indeterminate
-                color="white"
-                width="2"
-              ></v-progress-circular>
               <div v-if="erros">
                 <Erros :erros="erros" />
               </div>
@@ -30,14 +24,18 @@
                   name="email"
                   label="Email..."
                   type="email"
-                  v-model="usuario.email"
+                  :error-messages="emailErrors"
+                  :success="!$v.usuario.email.$invalid"
+                  v-model.trim="$v.usuario.email.$model"
                   color="black"
                 ></v-text-field>
                 <v-text-field
                   name="password"
+                  :error-messages="passwordErrors"
+                  :success="!$v.usuario.senha.$invalid"
+                  v-model.trim="$v.usuario.senha.$model"
                   label="Senha..."
                   type="password"
-                  v-model="usuario.senha"
                   prepend-icon="mdi-lock-outline"
                 ></v-text-field>
               </v-form>
@@ -54,6 +52,7 @@
 import { mapActions } from 'vuex'
 import Erros from '../../components/comum/Erros'
 import gql from 'graphql-tag'
+import { required, email, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Login',
@@ -62,19 +61,53 @@ export default {
   },
   data () {
     return {
-      usuario: {},
+      usuario: {
+        email: '',
+        senha: ''
+      },
       dados: null,
       erros: null,
       isLoading: false
     }
+  },
+  validations () {
+    const validations = {
+      usuario: {
+        email: {
+          required,
+          email
+        },
+        senha: {
+          required,
+          minLength: minLength(4)
+        }
+      }
+    }
+    return validations
   },
   computed: {
     perfis () {
       return (
         this.dados &&
         this.dados.perfis &&
-        this.dados.perfis.map(p => p.nome).join(',')
+        this.dados.perfis.map(p => p.nomep).join(',')
       )
+    },
+    emailErrors () {
+      const errors = []
+      const email = this.$v.usuario.email
+      if (!email.$dirty) { return errors }
+      !email.required && errors.push('Email é obrigatório!')
+      !email.email && errors.push('Insira um email válido!')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      const password = this.$v.usuario.senha
+      if (!password.$dirty) { return errors }
+      !password.required && errors.push('Senha é obrigatória!')
+      !password.minLength && errors.push(`Insira pelo menos ${password.$params.minLength.min} caracteres!`)
+      return errors
     }
   },
   methods: {
@@ -91,7 +124,7 @@ export default {
                 email
                 token
                 perfis {
-                  nome
+                  nomep
                 }
               }
             }

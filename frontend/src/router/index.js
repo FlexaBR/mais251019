@@ -36,7 +36,6 @@ const routes = [
       }
     ]
   },
-
   {
     path: '/dashboard',
     component: () => import('@/views/dashboard/Index'),
@@ -46,6 +45,23 @@ const routes = [
         name: 'Dashboard',
         path: '',
         component: () => import('@/views/dashboard/Dashboard')
+      },
+      // Cliente
+      {
+        name: 'Cliente',
+        path: 'cliente/cadastro',
+        component: () => import('@/views/dashboard/cliente/FrmCliente')
+      },
+      // Admin
+      {
+        name: 'AdminPages',
+        path: 'admin/adminPages',
+        component: () => import('@/views/dashboard/admin/AdminPages')
+      },
+      {
+        name: 'AdminAuth',
+        path: 'admin/adminAuth',
+        component: () => import('@/views/dashboard/admin/auth/AdminAuth')
       }
     ]
   },
