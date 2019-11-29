@@ -62,7 +62,7 @@ export default {
       perfis: [],
       dados: null,
       erros: null,
-      items: ['Logista', 'Preposto ou Representante']
+      items: ['Logista', 'Representante']
     }
   },
   computed: {

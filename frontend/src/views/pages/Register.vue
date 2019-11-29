@@ -57,6 +57,8 @@
                     label="Sou..."
                     prepend-icon="mdi-help-box"
                     :items="items"
+                    :error-messages="atividadeErrors"
+                    :success="!$v.usuario.atividade.$invalid"
                   />
                   <v-text-field
                     name="email"
@@ -114,6 +116,7 @@ export default {
     usuario: {
       nome: '',
       email: '',
+      atividade: '',
       senha: '',
       confirmPassword: ''
     },
@@ -159,6 +162,9 @@ export default {
           required,
           minLength: minLength(4),
           sameAs: sameAs('senha')
+        },
+        atividade: {
+          required
         }
       }
     }
@@ -196,6 +202,13 @@ export default {
       !confirmPassword.required && errors.push('Repita a senha!')
       !confirmPassword.minLength && errors.push(`Insira pelo menos ${confirmPassword.$params.minLength.min} caracteres!`)
       !confirmPassword.sameAs && errors.push('Senha deve ser identica!')
+      return errors
+    },
+    atividadeErrors () {
+      const errors = []
+      const atividade = this.$v.usuario.atividade
+      if (!atividade.$dirty) { return errors }
+      !atividade.required && errors.push('Atividade é obrigatória!')
       return errors
     }
   },

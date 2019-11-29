@@ -9,5 +9,14 @@ module.exports = {
                 'usuarios_perfis.perfil_id'
             )
             .where({ usuario_id: usuario.id })
+    },
+    articles(usuario) {
+        return db('articles')
+            .join(
+                'usuarios',
+                'usuarios.id',
+                'articles.usuario_id'
+            )
+            .where({ usuario_id: usuario.id })
     }
 }

@@ -1,5 +1,5 @@
+import './base'
 import './chartist'
 import './graphql'
-import './base'
-import './vuelidate'
 import './msgs'
+import './vuelidate'

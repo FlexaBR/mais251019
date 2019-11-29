@@ -165,3 +165,11 @@ export default {
   }
 }
 </script>
+
+<style>
+
+#dashboard-drawer a {
+  text-decoration: none;
+}
+
+</style>

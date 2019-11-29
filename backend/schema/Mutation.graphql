@@ -28,4 +28,29 @@ type Mutation {
         dados: PerfilInput!
     ): Perfil
 
+    # Mutations de Article
+    novoArticle(
+        dados: ArticleInput!
+    ): Article!
+    excluirArticle(
+        filtro: ArticleFiltro!
+    ): Article
+    alterarArticle(
+        filtro: ArticleFiltro!
+        dados: ArticleInput!
+    ): Article
+    
+    # Mutations de Category
+    novoCategory(
+        dados: CategoryInput!
+    ): Category!
+    excluirCategory(
+        filtro: CategoryFiltro!
+    ): Category
+    alterarCategory(
+        filtro: CategoryFiltro!
+        dados: CategoryInput!
+    ): Category
+
+
 }

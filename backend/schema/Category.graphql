@@ -1,0 +1,13 @@
+type Category {
+    id: Int
+    name: String!
+    articles: [Article]
+}
+
+input CategoryInput {
+    name: String!
+}
+
+input CategoryFiltro {
+    id: Int
+}

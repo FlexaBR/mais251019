@@ -5,7 +5,13 @@ type Query {
     usuario(filtro: UsuarioFiltro!): Usuario
     perfis: [Perfil]
     perfil(filtro: PerfilFiltro!): Perfil
+
+    articles: [Article]
+    article(filtro: ArticleFiltro!): Article
+    categories: [Category]
+    category(filtro: CategoryFiltro!): Category
+    faturas: [Fatura]
     pedidos: [Pedido]
     pedido(filtro: PedidoFiltro!): Pedido
-    faturas: [Fatura]
+    
 }

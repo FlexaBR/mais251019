@@ -60,3 +60,14 @@ export default {
   }
 }
 </script>
+
+<style>
+
+#dashboard-bar a {
+  text-decoration: none;
+}
+
+#btnDrawer {
+  outline: 0;
+}
+</style>

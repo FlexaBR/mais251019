@@ -6,6 +6,7 @@ type Usuario {
     ativo: Boolean
     token: String
     perfis: [Perfil]
+    articles: [Article]
 }
 input UsuarioInput {
     nome: String
