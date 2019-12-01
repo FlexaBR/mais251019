@@ -14,7 +14,7 @@ module.exports = {
         }
     },
     async excluirCategory(_, args, ctx) {
-
+        ctx && ctx.validarAdmin()
         try {
             const category = await obterCategory(_, args)
             if(category) {
@@ -28,7 +28,7 @@ module.exports = {
         }
     },
     async alterarCategory(_, { filtro, dados }, ctx) {
-
+        ctx && ctx.validarAdmin()
         try {
             const category = await obterCategory(_, { filtro })
             if(category) {

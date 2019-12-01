@@ -1,13 +1,22 @@
 type Category {
     id: Int
     name: String!
+    parentId: Int
     articles: [Article]
 }
 
 input CategoryInput {
+    name: String
+    parentId: Int
+}
+
+input CategoryRegistrarInput {
     name: String!
+    parentId: Int
 }
 
 input CategoryFiltro {
     id: Int
+    name: String
+    parentId: Int
 }

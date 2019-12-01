@@ -30,7 +30,7 @@
     <div class="mx-3" />
     <v-toolbar-items>
       <v-btn min-height="48" text href="/home" @click="setUsuario(null)">
-        <v-icon left size="20">mdi-account </v-icon>
+        <v-icon size="20">mdi-account </v-icon>
       </v-btn>
     </v-toolbar-items>
   </v-app-bar>

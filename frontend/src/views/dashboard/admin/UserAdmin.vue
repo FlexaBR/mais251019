@@ -85,6 +85,8 @@
 
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
+import { showError } from '@/global'
+import gql from 'graphql-tag'
 import {
   BButton,
   BCol,
@@ -94,8 +96,6 @@ import {
   BRow,
   BTable
 } from 'bootstrap-vue'
-import { showError } from '@/global'
-import gql from 'graphql-tag'
 
 export default {
   name: 'UserAdmin',
@@ -183,7 +183,6 @@ export default {
     loadUser (usuario, mode = 'save') {
       this.mode = mode
       this.usuario = { ...usuario }
-      console.log(mode)
     },
     obterUsuarios () {
       this.$api

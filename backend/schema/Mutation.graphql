@@ -41,6 +41,9 @@ type Mutation {
     ): Article
     
     # Mutations de Category
+    registrarCategory(
+        dados: CategoryRegistrarInput!
+    ): Category!
     novoCategory(
         dados: CategoryInput!
     ): Category!
@@ -51,6 +54,5 @@ type Mutation {
         filtro: CategoryFiltro!
         dados: CategoryInput!
     ): Category
-
 
 }
