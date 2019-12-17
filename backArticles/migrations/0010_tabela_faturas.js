@@ -1,8 +1,8 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('faturas', table => {
         table.increments('id').primary()
-        table.integer('pedido_id').unsigned()
-        table.foreign('pedido_id').references('pedidos.id')
+        table.integer('pedidoId').unsigned()
+        table.foreign('pedidoId').references('pedidos.id')
         table.boolean('cancelado')
             .notNull().defaultTo(false)
         table.string('nf')    
@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
             .defaultTo(knex.fn.now())
     }).then(function () {
         return knex('faturas').insert([
-            { pedido_id: 1, nf: 'nf 1 tst'}
+            { pedidoId: 1, nf: 'nf 1 tst'}
         ])
     })
 };

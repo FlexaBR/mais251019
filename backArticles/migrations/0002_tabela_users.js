@@ -7,7 +7,8 @@ exports.up = function (knex, Promise) {
         table.boolean('admin').notNull().defaultTo(false)
         table.string('atividade')
         table.boolean('ativo').notNull().defaultTo(true)
-        
+        table.timestamp('dataCriacao')
+            .defaultTo(knex.fn.now())        
     })
 };
 

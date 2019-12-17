@@ -1,12 +1,12 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('pedidos', table => {
         table.increments('id').primary()
-        table.integer('cliente_id').unsigned()
-        table.foreign('cliente_id').references('clientes.id')
-        table.integer('fabrica_id').unsigned()
-        table.foreign('fabrica_id').references('fabricas.id')
-        table.integer('preposto_id').unsigned()
-        table.foreign('preposto_id').references('prepostos.id')
+        table.integer('clienteId').unsigned()
+        table.foreign('clienteId').references('clientes.id')
+        table.integer('fabricaId').unsigned()
+        table.foreign('fabricaId').references('fabricas.id')
+        table.integer('prepostoId').unsigned()
+        table.foreign('prepostoId').references('prepostos.id')
         table.integer('situacao').notNull()
             .defaultTo(1)
         table.dateTime('dataOrca')
@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
             .defaultTo(knex.fn.now())
     }).then(function () {
         return knex('pedidos').insert([
-            { cliente_id: 1, fabrica_id: 1, preposto_id: 1, atualPor: 'Ricardo' }
+            { clienteId: 1, fabricaId: 1, prepostoId: 1, atualPor: 'Ricardo' }
         ])
     })
 };

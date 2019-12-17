@@ -1,8 +1,8 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('fabricas', table => {
         table.increments('id').primary()
-        table.integer('cidade_id').unsigned()
-        table.foreign('cidade_id').references('cidades.id')
+        table.integer('cidadeId').unsigned()
+        table.foreign('cidadeId').references('cidades.id')
         table.string('situacao').notNull()
             .defaultTo('ATIVA')
         table.string('razaoSocial').notNull()
@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
             .defaultTo(knex.fn.now())
     }).then(function () {
         return knex('fabricas').insert([
-            { cidade_id: 10, razaoSocial: 'Fabrica Teste 1' }
+            { cidadeId: 10, razaoSocial: 'Fabrica Teste 1' }
         ])
     })
 };

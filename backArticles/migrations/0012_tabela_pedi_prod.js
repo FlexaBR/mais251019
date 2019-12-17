@@ -1,10 +1,10 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('pedi_prod', table => {
         table.increments('id').primary()
-        table.integer('pedido_id').unsigned().notNull()
-        table.foreign('pedido_id').references('pedidos.id')
-        table.integer('produto_id').unsigned().notNull()
-        table.foreign('produto_id').references('produtos.id')
+        table.integer('pedidoId').unsigned().notNull()
+        table.foreign('pedidoId').references('pedidos.id')
+        table.integer('produtoId').unsigned().notNull()
+        table.foreign('produtoId').references('produtos.id')
         table.boolean('cancelado')
             .notNull().defaultTo(false)
         table.string('detalhes')
@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
             .defaultTo(knex.fn.now())
     }).then(function () {
         return knex('pedi_prod').insert([
-            { pedido_id: 1, produto_id: 1, detalhes: 'Vermelho', quantidade: 5 }
+            { pedidoId: 1, produtoId: 1, detalhes: 'Vermelho', quantidade: 5 }
         ])
     })
 };

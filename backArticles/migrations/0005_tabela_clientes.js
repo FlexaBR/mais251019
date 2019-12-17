@@ -1,10 +1,10 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('clientes', table => {
         table.increments('id').primary()
-        table.integer('usuario_id').unsigned()
-        table.foreign('usuario_id').references('usuarios.id')
-        table.integer('cidade_id').unsigned()
-        table.foreign('cidade_id').references('cidades.id')
+        table.integer('userId').unsigned()
+        table.foreign('userId').references('users.id')
+        table.integer('cidadeId').unsigned()
+        table.foreign('cidadeId').references('cidades.id')
         table.integer('situacao').notNull()
             .defaultTo(1)
         table.string('razaoSocial').notNull()
@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
             .defaultTo(knex.fn.now())
     }).then(function () {
         return knex('clientes').insert([
-            { cidade_id: 10, razaoSocial: 'Cliente Teste 1' }
+            { cidadeId: 10, razaoSocial: 'Cliente Teste 1' }
         ])
     })
 };
