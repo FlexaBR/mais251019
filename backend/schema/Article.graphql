@@ -3,8 +3,7 @@ type Article {
     name: String!
     description: String!
     image: String
-    category_Id: Int
-    usuario_id: Int
+    content: String
     
 }
 
@@ -12,8 +11,7 @@ input ArticleInput {
     name: String!
     description: String!
     image: String
-    category_id: Int
-    usuario_id: Int    
+    content: String   
 }
 
 input ArticleFiltro {

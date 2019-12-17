@@ -61,7 +61,6 @@ export default {
       fields: [
         { key: 'id', label: 'ID', sortable: true },
         { key: 'name', label: 'Nome', sortable: true },
-        { key: 'path', label: 'Caminho', sortable: true },
         { key: 'actions', label: 'Ações' }
       ]
     }
@@ -129,23 +128,19 @@ export default {
           mutation: gql`
             mutation(
               $name: String!
-              $parentId: Int
             ) {
               novoCategory(
                 dados: {
                   name: $name
-                  parentId: $parentId
                 }
               ) {
                 id
                 name
-                parentId
               }
             }
           `,
           variables: {
-            name: this.category.name,
-            parentId: this.category.parentId
+            name: this.category.name
           }
         })
         .then(resultado => {

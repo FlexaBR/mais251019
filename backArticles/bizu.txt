@@ -1,0 +1,16 @@
+- Acertei docker-compose
+- criei package.json
+- copiei package.json do curso Vue JS 2 - O Guia ccompleto (knowledge - base de conhecimento, backend)
+- instalei Knex global: npm i -g knex
+- segui curso para criacao api
+.
+.
+.
+- knex init 
+- knex migrate:make create_table_users
+- knex migrate:make create_table_categories...
+- knex migrate:latest
+- knex migrate:rollback
+.
+.
+.

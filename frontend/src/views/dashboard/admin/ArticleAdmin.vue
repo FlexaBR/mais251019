@@ -14,29 +14,41 @@
           class="mb-5"
         />
       </b-form-group>
-      <b-form-group
-        v-if="mode === 'save'"
-        label="Categoria-Pai:"
-        label-for="article-parentId">
-          <b-form-select id="article-parentId"
-            :readonly="mode === 'remove'"
-            :options="categories"
-            v-model="article.parentId" />
+      <b-form-group label="Descrição" label-for="article-description">
+        <b-form-input
+          id="article-description"
+          type="text"
+          v-model="article.description"
+          required
+          :readonly="mode === 'remove'"
+          placeholder="Informe a Descrição do Artigo..."
+          size="sm"
+        />
       </b-form-group>
-      <b-form-group label="Conteúdo" label-for="article-content">
-        <VueEditor v-model="article.content" placeholder="Informe o conteúdo do artigo" />
+      <b-form-group v-if="mode === 'save'"
+        label="Conteúdo" label-for="article-content">
+        <VueEditor v-model="article.content"
+          placeholder="Informe o Conteúdo do Artigo..." />
       </b-form-group>
-      <b-button v-if="mode === 'save'" variant="primary" @click="save" class="mt-5">Salvar</b-button>
-      <b-button v-if="mode === 'remove'" variant="danger" @click="remove" class="mt-5">Excluir</b-button>
+      <b-button variant="primary" v-if="mode === 'save'" @click="save" class="mt-5">Salvar</b-button>
+      <b-button variant="danger" v-if="mode === 'remove'" @click="remove" class="mt-5">Excluir</b-button>
       <b-button class="ml-2 mt-5" @click="reset">Cancelar</b-button>
     </b-form>
-
-    <b-table table-class="small" hover striped :items="articles" :fields="fields" class="mt-5" small>
-      <template v-slot:cell(actions)="row">
-        <b-button size="sm" variant="warning" @click="loadCategory(row.item)" class="mr-2">
+    <hr />
+    <b-table
+      hover
+      striped
+      :items="articles"
+      :fields="fields"
+      class="mt-5"
+      small
+      table-class="small"
+    >
+      <template slot="actions" slot-scope="data">
+        <b-button size="sm" variant="warning" @click="loadArticle(data.item)" class="mr-2">
           <i class="fa fa-pencil"></i>
         </b-button>
-        <b-button size="sm" variant="danger" @click="loadCategory(row.item, 'remove')">
+        <b-button size="sm" variant="danger" @click="loadArticle(data.item, 'remove')">
           <i class="fa fa-trash"></i>
         </b-button>
       </template>
@@ -54,7 +66,6 @@ import {
   BForm,
   BFormGroup,
   BFormInput,
-  BFormSelect,
   BTable
 } from 'bootstrap-vue'
 
@@ -65,7 +76,6 @@ export default {
     'b-form': BForm,
     'b-form-group': BFormGroup,
     'b-form-input': BFormInput,
-    'b-form-select': BFormSelect,
     'b-table': BTable,
     VueEditor
   },
@@ -74,21 +84,45 @@ export default {
       mode: 'save',
       article: {},
       articles: [],
-      categories: [],
-      usuarios: [],
-      page: 1,
-      limit: 0,
-      count: 0,
       fields: [
         { key: 'id', label: 'ID', sortable: true },
         { key: 'name', label: 'Nome', sortable: true },
-        { key: 'path', label: 'Caminho', sortable: true },
+        { key: 'description', label: 'Descrição', sortable: true },
         { key: 'actions', label: 'Ações' }
       ]
     }
   },
   methods: {
-    alterarCategory () {
+    obterArticles () {
+      this.$api
+        .query({
+          query: gql`
+            query {
+              articles {
+                id
+                name
+                description
+              }
+            }
+          `,
+          fetchPolicy: 'network-only'
+        })
+        .then(resultado => {
+          this.articles = resultado.data.articles
+        })
+        .catch(e => {
+          this.articles = []
+        })
+    },
+    reset () {
+      this.mode = 'save'
+      this.article = {}
+      this.obterArticles()
+    },
+    save () {
+      this.article.id ? this.alterarArticle() : this.registrar()
+    },
+    alterarArticle () {
       this.$api
         .mutate({
           mutation: gql`
@@ -96,53 +130,32 @@ export default {
               $idFiltro: Int
               $name: String
             ) {
-              alterarCategory(
+              alterarArticle(
                 filtro: { id: $idFiltro }
                 dados: {
                   name: $name
+                  description: $description
                 }
               ) {
                 id
                 name
+                description
               }
             }
           `,
           variables: {
-            idFiltro: this.category.id,
-            name: this.category.name
+            idFiltro: this.article.id,
+            name: this.article.name,
+            description: this.article.description
           }
         })
         .then(resultado => {
-          this.dados = resultado.data.alterarCategory
-          this.category = {}
+          this.dados = resultado.data.alterarArticle
+          this.article = {}
           this.$toasted.global.defaultSuccess()
           this.reset()
         })
         .catch(showError)
-    },
-    loadCategory (category, mode = 'save') {
-      this.mode = mode
-      this.category = { id: category.id, name: category.name }
-    },
-    obterCategories () {
-      this.$api
-        .query({
-          query: gql`
-            query {
-              categories {
-                id
-                name
-              }
-            }
-          `,
-          fetchPolicy: 'network-only'
-        })
-        .then(resultado => {
-          this.categories = resultado.data.categories
-        })
-        .catch(e => {
-          this.categories = []
-        })
     },
     registrar () {
       this.$api
@@ -150,28 +163,28 @@ export default {
           mutation: gql`
             mutation(
               $name: String!
-              $parentId: Int
+              $description: String!
             ) {
-              novoCategory(
+              novoArticle(
                 dados: {
                   name: $name
-                  parentId: $parentId
+                  description: $description
                 }
               ) {
                 id
                 name
-                parentId
+                description
               }
             }
           `,
           variables: {
-            name: this.category.name,
-            parentId: this.category.parentId
+            name: this.article.name,
+            description: this.article.description
           }
         })
         .then(resultado => {
           this.$toasted.global.defaultSuccess()
-          this.category = {}
+          this.article = {}
           this.reset()
         })
         .catch(showError)
@@ -181,38 +194,38 @@ export default {
         .mutate({
           mutation: gql`
             mutation($id: Int) {
-              excluirCategory(filtro: { id: $id }) {
+              excluirArticle(filtro: { id: $id }) {
                 id
                 name
               }
             }
           `,
           variables: {
-            id: this.category.id
+            id: this.article.id
           }
         })
         .then(resultado => {
-          this.dados = resultado.data.excluirCategory
+          this.dados = resultado.data.excluirArticle
           this.$toasted.global.defaultSuccess()
           this.filtro = {}
           this.reset()
         })
         .catch(showError)
     },
-    reset () {
-      this.mode = 'save'
-      this.category = {}
-      this.obterCategories()
-    },
-    save () {
-      this.category.id ? this.alterarCategory() : this.registrar()
+    loadArticle (article, mode = 'save') {
+      this.mode = mode
+      this.article = { ...article }
+    }
+  },
+  watch: {
+    page () {
+      this.obterArticles()
     }
   },
   mounted () {
-    this.obterCategories()
+    this.obterArticles()
   }
 }
-
 </script>
 
 <style>
