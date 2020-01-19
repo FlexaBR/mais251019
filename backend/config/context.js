@@ -1,3 +1,5 @@
+const { authSecret } = require('../.env')
+
 const jwt = require('jwt-simple')
 
 module.exports = async ({ req }) => {
@@ -7,7 +9,7 @@ module.exports = async ({ req }) => {
     const auth = req.headers.authorization
     const token = auth && auth.substring(7)
 
-    let usuario = null
+    let user = null
     let admin = false
     let cliente = false
     let diretor = false
@@ -16,32 +18,32 @@ module.exports = async ({ req }) => {
     if(token) {
         try {
             let conteudoToken = jwt.decode(token,
-                process.env.APP_AUTH_SECRET)
+                authSecret)
             if(new Date(conteudoToken.exp * 1000) > new Date()) {
-                usuario = conteudoToken
+                user = conteudoToken
             }
         } catch(e) {
             // token inválido
         }
     }
     
-    if(usuario && usuario.perfis) {
-        admin = usuario.perfis.includes('Admin')
-        cliente = usuario.perfis.includes('Cliente')
-        diretor = usuario.perfis.includes('Diretor')
-        preposto = usuario.perfis.includes('Preposto')
+    if(user && user.perfis) {
+        admin = user.perfis.includes('Admin')
+        cliente = user.perfis.includes('Cliente')
+        diretor = user.perfis.includes('Diretor')
+        preposto = user.perfis.includes('Preposto')
     }
 
     const err = new Error('Acesso negado!')
 
     return {
-        usuario,
+        user,
         admin,
         cliente,
         diretor,
         preposto,
-        validarUsuario() {
-            if(!usuario) throw err
+        validarUser() {
+            if(!user) throw err
         },
         validarAdmin() {
             if(!admin) throw err
@@ -55,15 +57,15 @@ module.exports = async ({ req }) => {
         validarPreposto() {
             if(!preposto) throw err
         },
-        validarUsuarioFiltro(filtro) {
+        validarUserFiltro(filtro) {
             if(admin) return
-            if(!usuario) throw err
+            if(!user) throw err
             if(!filtro) throw err
 
             const { id, email } = filtro
             if(!id && !email) throw err
-            if(id && id !== usuario.id) throw err
-            if(email && email !== usuario.email) throw err
+            if(id && id !== user.id) throw err
+            if(email && email !== user.email) throw err
         }
     }
 }

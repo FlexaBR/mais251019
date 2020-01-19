@@ -1,25 +1,24 @@
 const bcrypt = require('bcryptjs')
 const db = require('../../config/db')
 const { perfil: obterPerfil } = require('../Query/perfil')
-const { usuario: obterUsuario } = require('../Query/usuario')
+const { user: obterUser } = require('../Query/user')
 
 const mutations = {
     
-    registrarUsuario(_, { dados }) {
-        return mutations.novoUsuario(_, {
+    registrarUser(_, { dados }) {
+        return mutations.novoUser(_, {
             dados: {
-                nome: dados.nome,
+                name: dados.name,
                 atividade: dados.atividade,
                 email: dados.email,
-                senha: dados.senha,
+                password: dados.password,
             }
         })
     },
-    async novoUsuario(_, { dados }, ctx) {
-        ctx && ctx.validarAdmin()
+    async novoUser(_, { dados }, ) {
         try {
             const idsPerfis = []
-
+            
             if(!dados.perfis || !dados.perfis.length) {
                 dados.perfis = [{
                     nomep: 'Geral'
@@ -35,50 +34,50 @@ const mutations = {
 
             // criptografar a senha
             const salt = bcrypt.genSaltSync()
-            dados.senha = bcrypt.hashSync(dados.senha, salt)
+            dados.password = bcrypt.hashSync(dados.password, salt)
 
             delete dados.perfis
-            const [ id ] = await db('usuarios')
+            const [ id ] = await db('users')
                 .insert(dados)
 
-            for(let perfil_id of idsPerfis) {
-                await db('usuarios_perfis')
-                    .insert({ perfil_id, usuario_id: id })
+            for(let perfilId of idsPerfis) {
+                await db('users_perfis')
+                    .insert({ perfilId, userId: id })
             }
 
-            return db('usuarios')
+            return db('users')
                 .where({ id }).first()
         } catch(e) {
             throw new Error(e.sqlMessage)
         }
     },
-    async excluirUsuario(_, args, ctx) {
+    async excluirUser(_, args, ctx) {
         ctx && ctx.validarAdmin()
         try {
-            const usuario = await obterUsuario(_, args)
-            if(usuario) {
-                const { id } = usuario
-                await db('usuarios_perfis')
-                    .where({ usuario_id: id }).delete()
-                await db('usuarios')
+            const user = await obterUser(_, args)
+            if(user) {
+                const { id } = user
+                await db('users_perfis')
+                    .where({ userId: id }).delete()
+                await db('users')
                     .where({ id }).delete()
             }
-            return usuario
+            return user
         } catch(e) {
             throw new Error(e.sqlMessage)
         }
 
     },
-    async alterarUsuario(_, { filtro, dados }, ctx) {
-        ctx && ctx.validarUsuarioFiltro(filtro)
+    async alterarUser(_, { filtro, dados }, ctx) {
+        ctx && ctx.validarUserFiltro(filtro)
         try {
-            const usuario = await obterUsuario(_, { filtro })
-            if(usuario) {
-                const { id } = usuario
+            const user = await obterUser(_, { filtro })
+            if(user) {
+                const { id } = user
                 // so permite alterar perfil se admin
                 if(ctx.admin && dados.perfis) {
-                    await db('usuarios_perfis')
-                        .where({ usuario_id: id }).delete()
+                    await db('users_perfis')
+                        .where({ userId: id }).delete()
 
                     for(let filtro of dados.perfis) {
                         const perfil = await obterPerfil(_, {
@@ -86,27 +85,27 @@ const mutations = {
                         })
                         
                         if(perfil) {
-                            await db('usuarios_perfis')
+                            await db('users_perfis')
                                 .insert({
-                                    perfil_id: perfil.id,
-                                    usuario_id: id
+                                    perfilId: perfil.id,
+                                    userId: id
                                 })
                         }
                     }
                 }
 
-                if(dados.senha) {
+                if(dados.password) {
                     // criptografar a senha
                     const salt = bcrypt.genSaltSync()
-                    dados.senha = bcrypt.hashSync(dados.senha, salt)
+                    dados.password = bcrypt.hashSync(dados.password, salt)
                 }
 
                 delete dados.perfis
-                await db('usuarios')
+                await db('users')
                     .where({ id })
                     .update(dados)
             }
-            return !usuario ? null : { ...usuario, ...dados }
+            return !user ? null : { ...user, ...dados }
         } catch(e) {
             throw new Error(e)
         }

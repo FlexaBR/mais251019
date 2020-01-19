@@ -1,7 +1,7 @@
 // https://vuex.vuejs.org/en/state.html
 
 export default {
-  usuario: null,
+  user: null,
   drawer: null,
   isMenuVisible: false,
 

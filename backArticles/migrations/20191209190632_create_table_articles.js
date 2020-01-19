@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
             .inTable('users').notNull()
         table.integer('categoryId').references('id')
             .inTable('categories').notNull()
+        table.timestamp('dataCriacao')
+            .defaultTo(knex.fn.now())  
     })
 };
 

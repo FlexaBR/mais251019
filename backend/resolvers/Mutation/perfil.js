@@ -2,8 +2,7 @@ const db = require('../../config/db')
 const { perfil: obterPerfil } = require('../Query/perfil')
 
 module.exports = {
-    async novoPerfil(_, { dados }, ctx) {
-        ctx && ctx.validarAdmin()
+    async novoPerfil(_, { dados }, ) {
        
         try {
             const [ id ] = await db('perfis')
@@ -21,8 +20,8 @@ module.exports = {
             const perfil = await obterPerfil(_, args)
             if(perfil) {
                 const { id } = perfil
-                await db('usuarios_perfis')
-                    .where({ perfil_id: id }).delete()
+                await db('users_perfis')
+                    .where({ perfilId: id }).delete()
                 await db('perfis')
                     .where({ id }).delete()
             }

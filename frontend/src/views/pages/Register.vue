@@ -41,8 +41,8 @@
                     name="name"
                     type="text"
                     :error-messages="nameErrors"
-                    :success="!$v.usuario.nome.$invalid"
-                    v-model.trim="$v.usuario.nome.$model"
+                    :success="!$v.user.name.$invalid"
+                    v-model.trim="$v.user.name.$model"
                     color="secondary"
                     label="Nome..."
                     prepend-icon="mdi-face"
@@ -52,20 +52,20 @@
                   <v-select
                     name="atividade"
                     dense
-                    v-model="usuario.atividade"
+                    v-model="user.atividade"
                     color="secondary"
                     label="Sou..."
                     prepend-icon="mdi-help-box"
                     :items="items"
                     :error-messages="atividadeErrors"
-                    :success="!$v.usuario.atividade.$invalid"
+                    :success="!$v.user.atividade.$invalid"
                   />
                   <v-text-field
                     name="email"
                     type="email"
                     :error-messages="emailErrors"
-                    :success="!$v.usuario.email.$invalid"
-                    v-model.trim="$v.usuario.email.$model"
+                    :success="!$v.user.email.$invalid"
+                    v-model.trim="$v.user.email.$model"
                     color="secondary"
                     label="Email..."
                     prepend-icon="mdi-email"
@@ -73,8 +73,8 @@
                   <v-text-field
                     name="password"
                     :error-messages="passwordErrors"
-                    :success="!$v.usuario.senha.$invalid"
-                    v-model.trim="$v.usuario.senha.$model"
+                    :success="!$v.user.password.$invalid"
+                    v-model.trim="$v.user.password.$model"
                     color="secondary"
                     label="Senha..."
                     prepend-icon="mdi-lock-outline"
@@ -87,8 +87,8 @@
                     prepend-icon="mdi-lock-outline"
                     type="password"
                     :error-messages="confirmPasswordErrors"
-                    :success="!$v.usuario.confirmPassword.$invalid"
-                    v-model.trim="$v.usuario.confirmPassword.$model"
+                    :success="!$v.user.confirmPassword.$invalid"
+                    v-model.trim="$v.user.confirmPassword.$model"
                    />
                   <base-btn color="#1e469a" dark @click="registrar" :disabled="$v.$invalid">Registrar</base-btn>
                 </div>
@@ -103,7 +103,8 @@
 
 <script>
 import Erros from '../../components/comum/Erros'
-import gql from 'graphql-tag'
+import { baseApiUrl, showError } from '@/global'
+import axios from 'axios'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
@@ -113,11 +114,12 @@ export default {
     Erros
   },
   data: () => ({
-    usuario: {
-      nome: '',
+    mode: 'save',
+    user: {
+      name: '',
       email: '',
       atividade: '',
-      senha: '',
+      password: '',
       confirmPassword: ''
     },
     erros: null,
@@ -145,8 +147,8 @@ export default {
   }),
   validations () {
     const validations = {
-      usuario: {
-        nome: {
+      user: {
+        name: {
           required,
           minLength: minLength(6)
         },
@@ -154,14 +156,14 @@ export default {
           required,
           email
         },
-        senha: {
+        password: {
           required,
           minLength: minLength(4)
         },
         confirmPassword: {
           required,
           minLength: minLength(4),
-          sameAs: sameAs('senha')
+          sameAs: sameAs('password')
         },
         atividade: {
           required
@@ -173,7 +175,7 @@ export default {
   computed: {
     nameErrors () {
       const errors = []
-      const name = this.$v.usuario.nome
+      const name = this.$v.user.name
       if (!name.$dirty) { return errors }
       !name.required && errors.push('Nome é obrigatório!')
       !name.minLength && errors.push(`Insira pelo menos ${name.$params.minLength.min} caracteres!`)
@@ -181,7 +183,7 @@ export default {
     },
     emailErrors () {
       const errors = []
-      const email = this.$v.usuario.email
+      const email = this.$v.user.email
       if (!email.$dirty) { return errors }
       !email.required && errors.push('Email é obrigatório!')
       !email.email && errors.push('Insira um email válido!')
@@ -189,7 +191,7 @@ export default {
     },
     passwordErrors () {
       const errors = []
-      const password = this.$v.usuario.senha
+      const password = this.$v.user.password
       if (!password.$dirty) { return errors }
       !password.required && errors.push('Senha é obrigatória!')
       !password.minLength && errors.push(`Insira pelo menos ${password.$params.minLength.min} caracteres!`)
@@ -197,7 +199,7 @@ export default {
     },
     confirmPasswordErrors () {
       const errors = []
-      const confirmPassword = this.$v.usuario.confirmPassword
+      const confirmPassword = this.$v.user.confirmPassword
       if (!confirmPassword.$dirty) { return errors }
       !confirmPassword.required && errors.push('Repita a senha!')
       !confirmPassword.minLength && errors.push(`Insira pelo menos ${confirmPassword.$params.minLength.min} caracteres!`)
@@ -206,56 +208,28 @@ export default {
     },
     atividadeErrors () {
       const errors = []
-      const atividade = this.$v.usuario.atividade
+      const atividade = this.$v.user.atividade
       if (!atividade.$dirty) { return errors }
       !atividade.required && errors.push('Atividade é obrigatória!')
       return errors
     }
   },
   methods: {
+    reset () {
+      this.mode = 'save'
+      this.user = {}
+      this.erros = null
+      this.$router.push(this.$route.query.redirect || '/analise')
+    },
     registrar () {
-      this.$api
-        .mutate({
-          mutation: gql`
-            mutation(
-              $nome: String!
-              $atividade: String!
-              $email: String!
-              $senha: String!
-            ) {
-              registrarUsuario(
-                dados: {
-                  nome: $nome
-                  atividade: $atividade
-                  email: $email
-                  senha: $senha
-                }
-              ) {
-                id
-                nome
-                atividade
-                email
-                perfis {
-                  nomep
-                }
-              }
-            }
-          `,
-          variables: {
-            nome: this.usuario.nome,
-            atividade: this.usuario.atividade,
-            email: this.usuario.email,
-            senha: this.usuario.senha
-          }
+      const method = this.user.id ? 'put' : 'post'
+      const id = this.user.id ? `/${this.user.id}` : ''
+      axios[method](`${baseApiUrl}/users${id}`, this.user)
+        .then(() => {
+          this.$toasted.global.defaultSuccess()
+          this.reset()
         })
-        .then(resultado => {
-          this.usuario = {}
-          this.erros = null
-          this.$router.push(this.$route.query.redirect || '/analise')
-        })
-        .catch(e => {
-          this.erros = e
-        })
+        .catch(showError)
     }
   }
 }

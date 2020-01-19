@@ -1,46 +1,45 @@
 const db = require('../../config/db')
 const bcrypt = require('bcryptjs')
-const { getUsuarioLogado } = require('../comum/usuario')
+const { getUsuarioLogado } = require('../comum/user')
 
 module.exports = {
 
     async login(_, { dados }) {
-        const usuario = await db('usuarios')
+        const user = await db('users')
             .where({ email: dados.email })
             .first()
-        if(!usuario) {
+        if(!user) {
             throw new Error('Usuário inválido')
         }
 
-        const saoIguais = bcrypt.compareSync(dados.senha,
-            usuario.senha)
+        const saoIguais = bcrypt.compareSync(dados.password,
+            user.password)
         if(!saoIguais) {
             throw new Error('Senha inválido')
         }
         
-        const ehAtivo = usuario.ativo
+        const ehAtivo = user.ativo
         if(!ehAtivo) {
             throw new Error('Usuário inativo. Contate o administrador.')
         }
 
-        return getUsuarioLogado(usuario)
+        return getUsuarioLogado(user)
     },
 
-    usuarios(parent, args, ctx) {
-        ctx && ctx.validarAdmin()
-        return db('usuarios')
+    users(parent, args, ctx) {
+        return db('users')
     },
-    usuario(_, { filtro }, ctx) {
-        ctx && ctx.validarUsuarioFiltro(filtro)
+    user(_, { filtro }, ctx) {
+        ctx && ctx.validarUserFiltro(filtro)
         
         if(!filtro) return null
         const { id, email } = filtro
         if(id) {
-            return db('usuarios')
+            return db('users')
                 .where({ id })
                 .first()
         } else if(email) {
-            return db('usuarios')
+            return db('users')
                 .where({ email })
                 .first()
         } else {

@@ -112,7 +112,7 @@ export default {
 
   computed: {
     ...mapState(['barColor']),
-    ...mapGetters(['usuario']),
+    ...mapGetters(['user']),
     drawer: {
       get () {
         return this.$store.state.drawer
@@ -128,7 +128,7 @@ export default {
       return {
         avatar: true,
         group: '',
-        title: this.usuario.nome,
+        title: this.user.name,
         children: [
           {
             href: '',

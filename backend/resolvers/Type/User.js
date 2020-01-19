@@ -1,13 +1,13 @@
 const db = require('../../config/db')
 
 module.exports = {
-    perfis(usuario) {
+    perfis(user) {
         return db('perfis')
             .join(
-                'usuarios_perfis',
+                'users_perfis',
                 'perfis.id',
-                'usuarios_perfis.perfil_id'
+                'users_perfis.perfilId'
             )
-            .where({ usuario_id: usuario.id })
+            .where({ userId: user.id })
     }
 }

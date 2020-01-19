@@ -1,12 +1,12 @@
 // https://vuex.vuejs.org/en/actions.html
 
 export default {
-  setUsuario ({ commit }, usuario) {
-    if (usuario && usuario.token) {
-      localStorage.setItem('token', usuario.token)
+  setUser ({ commit }, user) {
+    if (user && user.token) {
+      localStorage.setItem('token', user.token)
     } else {
       localStorage.removeItem('token')
     }
-    commit('setUsuario', usuario)
+    commit('setUser', user)
   }
 }

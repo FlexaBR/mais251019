@@ -1,38 +1,40 @@
-type Usuario {
+type User {
     id: Int
-    nome: String!
+    name: String!
     atividade: String!
     email: String!
+    admin: Boolean
     ativo: Boolean
     token: String
     perfis: [Perfil]
     articles: [Article]
 }
-input UsuarioInput {
-    nome: String
+input UserInput {
+    name: String
     atividade: String
     email: String
-    senha: String
+    password: String
+    admin: Boolean
     perfis: [PerfilFiltro]
 }
-input UsuarioRegistrarInput {
-    nome: String!
+input UserRegistrarInput {
+    name: String!
     atividade: String!
     email: String!
-    senha: String!
+    password: String!
 }
-input UsuarioLoginInput {
+input UserLoginInput {
     email: String!
-    senha: String!
+    password: String!
 }
-input UsuarioFiltro {
+input UserFiltro {
     id: Int
     email: String
 }
 type Perfil {
     id: Int
     nomep: String!
-    usuarios: [Usuario]
+    users: [User]
 }
 input PerfilInput {
     nomep: String

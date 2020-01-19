@@ -1,12 +1,10 @@
 const db = require('../../config/db')
 
 module.exports = {
-    perfis(parent, args, ctx) {
-        ctx && ctx.validarAdmin()
+    perfis(parent, args, ) {
         return db('perfis')
     },
-    perfil(_, { filtro }, ctx) {
-        ctx && ctx.validarAdmin()
+    perfil(_, { filtro }, ) {
         
         if(!filtro) return null
         const { id, nomep } = filtro

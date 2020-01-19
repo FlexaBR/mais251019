@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+export const baseApiUrl = 'http://localhost:3000'
+
 export function showError (e) {
   if (e && e.response && e.response.data) {
     Vue.toasted.global.defaultError({ msg: e.response.data })
@@ -10,4 +12,4 @@ export function showError (e) {
   }
 }
 
-export default { showError }
+export default { baseApiUrl, showError }

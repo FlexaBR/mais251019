@@ -3,7 +3,7 @@ const Mutation = require('./Mutation')
 
 const Pedido = require('./Type/Pedido')
 const Perfil = require('./Type/Perfil')
-const Usuario = require('./Type/Usuario')
+const User = require('./Type/User')
 
 
 module.exports = {
@@ -11,5 +11,5 @@ module.exports = {
     Mutation,
     Pedido,
     Perfil,
-    Usuario
+    User
 }

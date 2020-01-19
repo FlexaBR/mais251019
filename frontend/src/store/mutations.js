@@ -2,8 +2,8 @@
 import { set, toggle } from '@/utils/vuex'
 
 export default {
-  setUsuario (state, usuario) {
-    state.usuario = usuario
+  setUser (state, user) {
+    state.user = user
   },
   setDrawer: set('drawer'),
   toggleDrawer: toggle('drawer'),

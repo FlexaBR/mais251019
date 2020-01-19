@@ -1,6 +1,6 @@
 type Cliente {
     id: Int
-    usuario_id: Int!
+    user_id: Int!
     cidade_id: Int!
     situacao: Int!
     razaoSocial: String!

@@ -4,6 +4,8 @@ exports.up = function(knex, Promise) {
         table.string('name').notNull()
         table.integer('parentId').references('id')
             .inTable('categories')
+        table.timestamp('dataCriacao')
+            .defaultTo(knex.fn.now())  
     })
 };
 

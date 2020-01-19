@@ -14,6 +14,15 @@
           class="mb-5"
         />
       </b-form-group>
+      <b-form-group label="Categoria Pai:" label-for="category-parentId">
+        <b-form-select v-if="mode === 'save'"
+          id="category-parentId"
+          :options="categories" v-model="category.parentId" />
+        <b-form-input v-else
+          id="category-parentId" type="text"
+          v-model="category.path"
+          readonly />
+        </b-form-group>
       <b-button v-if="mode === 'save'" variant="primary" @click="save" class="mt-5">Salvar</b-button>
       <b-button v-if="mode === 'remove'" variant="danger" @click="remove" class="mt-5">Excluir</b-button>
       <b-button class="ml-2 mt-5" @click="reset">Cancelar</b-button>
@@ -34,13 +43,14 @@
 
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
-import { showError } from '@/global'
-import gql from 'graphql-tag'
+import { baseApiUrl, showError } from '@/global'
+import axios from 'axios'
 import {
   BButton,
   BForm,
   BFormGroup,
   BFormInput,
+  BFormSelect,
   BTable
 } from 'bootstrap-vue'
 
@@ -51,6 +61,7 @@ export default {
     'b-form': BForm,
     'b-form-group': BFormGroup,
     'b-form-input': BFormInput,
+    'b-form-select': BFormSelect,
     'b-table': BTable
   },
   data: function () {
@@ -61,38 +72,40 @@ export default {
       fields: [
         { key: 'id', label: 'ID', sortable: true },
         { key: 'name', label: 'Nome', sortable: true },
+        { key: 'path', label: 'Caminho', sortable: true },
         { key: 'actions', label: 'Ações' }
       ]
     }
   },
   methods: {
-    alterarCategory () {
-      this.$api
-        .mutate({
-          mutation: gql`
-            mutation(
-              $idFiltro: Int
-              $name: String
-            ) {
-              alterarCategory(
-                filtro: { id: $idFiltro }
-                dados: {
-                  name: $name
-                }
-              ) {
-                id
-                name
-              }
-            }
-          `,
-          variables: {
-            idFiltro: this.category.id,
-            name: this.category.name
-          }
+    loadCategories () {
+      const url = `${baseApiUrl}/categories`
+      axios.get(url).then(res => {
+        // this.categories = res.data
+        this.categories = res.data.map(category => {
+          return { ...category, value: category.id, text: category.path }
         })
-        .then(resultado => {
-          this.dados = resultado.data.alterarCategory
-          this.category = {}
+      })
+    },
+    reset () {
+      this.mode = 'save'
+      this.category = {}
+      this.loadCategories()
+    },
+    save () {
+      const method = this.category.id ? 'put' : 'post'
+      const id = this.category.id ? `/${this.category.id}` : ''
+      axios[method](`${baseApiUrl}/categories${id}`, this.category)
+        .then(() => {
+          this.$toasted.global.defaultSuccess()
+          this.reset()
+        })
+        .catch(showError)
+    },
+    remove () {
+      const id = this.category.id
+      axios.delete(`${baseApiUrl}/categories/${id}`)
+        .then(() => {
           this.$toasted.global.defaultSuccess()
           this.reset()
         })
@@ -100,90 +113,11 @@ export default {
     },
     loadCategory (category, mode = 'save') {
       this.mode = mode
-      this.category = { id: category.id, name: category.name }
-    },
-    obterCategories () {
-      this.$api
-        .query({
-          query: gql`
-            query {
-              categories {
-                id
-                name
-              }
-            }
-          `,
-          fetchPolicy: 'network-only'
-        })
-        .then(resultado => {
-          this.categories = resultado.data.categories
-        })
-        .catch(e => {
-          this.categories = []
-        })
-    },
-    registrar () {
-      this.$api
-        .mutate({
-          mutation: gql`
-            mutation(
-              $name: String!
-            ) {
-              novoCategory(
-                dados: {
-                  name: $name
-                }
-              ) {
-                id
-                name
-              }
-            }
-          `,
-          variables: {
-            name: this.category.name
-          }
-        })
-        .then(resultado => {
-          this.$toasted.global.defaultSuccess()
-          this.category = {}
-          this.reset()
-        })
-        .catch(showError)
-    },
-    remove () {
-      this.$api
-        .mutate({
-          mutation: gql`
-            mutation($id: Int) {
-              excluirCategory(filtro: { id: $id }) {
-                id
-                name
-              }
-            }
-          `,
-          variables: {
-            id: this.category.id
-          }
-        })
-        .then(resultado => {
-          this.dados = resultado.data.excluirCategory
-          this.$toasted.global.defaultSuccess()
-          this.filtro = {}
-          this.reset()
-        })
-        .catch(showError)
-    },
-    reset () {
-      this.mode = 'save'
-      this.category = {}
-      this.obterCategories()
-    },
-    save () {
-      this.category.id ? this.alterarCategory() : this.registrar()
+      this.category = { ...category }
     }
   },
   mounted () {
-    this.obterCategories()
+    this.loadCategories()
   }
 }
 

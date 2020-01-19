@@ -4,7 +4,7 @@ const category = require('./category')
 const fatura = require('./fatura')
 const pedido = require('./pedido')
 const perfil = require('./perfil')
-const usuario = require('./usuario')
+const user = require('./user')
 
  module.exports = {
    ...article,
@@ -12,5 +12,5 @@ const usuario = require('./usuario')
    ...fatura,
    ...pedido,
    ...perfil,
-   ...usuario,
+   ...user,
  }
